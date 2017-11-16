@@ -1,0 +1,13 @@
+name: Firegrid
+version: 0.1.0
+
+authors:
+  - Adrien Folie <folie.adrien@gmail.com>
+
+crystal: 0.23.1
+
+dependencies:
+  x11:
+    github: TamasSzekeres/x11-cr
+
+license: MIT
