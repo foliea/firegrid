@@ -1,3 +1,0 @@
-require "./firegrid/*"
-
-Application.start
