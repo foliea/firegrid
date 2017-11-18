@@ -23,4 +23,20 @@ describe "Square" do
       square.to_grid.should eq(expected_grid)
     end
   end
+
+  describe "==" do
+    it { (Square.new(0_u32, 0_u32) == Square.new(1_u32, 1_u32)).should be_false }
+
+    context "when given origin has the same x value" do
+      it { (Square.new(0_u32, 0_u32) == Square.new(0_u32, 1_u32)).should be_false }
+    end
+
+    context "when given origin has the same y value" do
+      it { (Square.new(0_u32, 0_u32) == Square.new(1_u32, 0_u32)).should be_false }
+    end
+
+    context "when given origin has the same x, y, and origin values" do
+      it { (Square.new(0_u32, 0_u32) == Square.new(0_u32, 0_u32)).should be_true }
+    end
+  end
 end

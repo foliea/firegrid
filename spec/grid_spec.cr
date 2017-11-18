@@ -1,4 +1,4 @@
-require "spec"
+require "./spec_helper"
 require "../src/grid"
 
 describe "Grid" do
@@ -19,6 +19,21 @@ describe "Grid" do
       grid = Grid.new(200_u32, 240_u32, origin: Position.new(100_u32, 120_u32))
 
       grid.center.should eq(Position.new(150_u32, 180_u32))
+    end
+  end
+
+  describe "#squares" do
+    it "creates and return grid squares" do
+      grid = Grid.new(1920_u32, 1200_u32, max_size: 6_u32)
+
+      grid.squares.should eq([
+        Square.new(640_u32, 600_u32, origin: Position.new(0_u32, 0_u32)),
+        Square.new(640_u32, 600_u32, origin: Position.new(640_u32, 0_u32)),
+        Square.new(640_u32, 600_u32, origin: Position.new(1280_u32, 0_u32)),
+        Square.new(640_u32, 600_u32, origin: Position.new(0_u32, 600_u32)),
+        Square.new(640_u32, 600_u32, origin: Position.new(640_u32, 600_u32)),
+        Square.new(640_u32, 600_u32, origin: Position.new(1280_u32, 600_u32))
+      ])
     end
   end
 
