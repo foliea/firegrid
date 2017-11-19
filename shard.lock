@@ -1,6 +1,6 @@
 version: 1.0
 shards:
-  x11:
-    github: TamasSzekeres/x11-cr
-    version: 0.3.0
+  crsfml:
+    github: oprypin/crsfml
+    version: 2.4.10
 
