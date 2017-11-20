@@ -4,3 +4,7 @@ shards:
     github: oprypin/crsfml
     version: 2.4.10
 
+  toml:
+    github: manastech/crystal-toml
+    commit: 763da4033745ab7b39e7a0fe4a4b23f6dc8b7cc6
+

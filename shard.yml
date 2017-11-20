@@ -10,5 +10,8 @@ dependencies:
   crsfml:
     github: oprypin/crsfml
     version: 2.4.10
+  toml:
+    github: manastech/crystal-toml
+    branch: master
 
 license: MIT

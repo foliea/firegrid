@@ -1,52 +1,58 @@
-# TODO: Load and use a configuration file
-# Probably a TOML file.
-class Config
-  DEFAULT_TARGET_KEYS = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-    "semicolon",
-    "quote",
-    "comma",
-    "period",
-    "escape",
-    "slash",
-    "lbracket",
-    "rbracket",
-    "backslash",
-    "tilde",
-    "num1",
-    "num0",
-  ]
+require "toml"
+require "./errors"
 
-  def matches_target?(keycode)
-    DEFAULT_TARGET_KEYS.includes?(keycode)
+# TODO: validate configuration, file presence etc
+# Handle when there is less than 40 keys.
+class Config
+  KEYCODE_KEYS = {
+    "lbracket"  => "[",
+    "rbracket"  => "]",
+    "backslash" => "\\",
+    "semicolon" => ";",
+    "quote"     => "'",
+    "comma"     => ",",
+    "period"    => ".",
+    "slash"     => "/",
+    "tilde"     => "`",
+    "dash"      => "-",
+    "equal"     => "=",
+    "num0"      => "0",
+    "num1"      => "1",
+    "num2"      => "2",
+    "num3"      => "3",
+    "num4"      => "4",
+    "num5"      => "5",
+    "num6"      => "6",
+    "num7"      => "7",
+    "num8"      => "8",
+    "num9"      => "9",
+  }
+
+  FILENAME = File.join(ENV["HOME"], ".config/firegrid/firegrid.toml")
+
+  def initialize(filename = FILENAME)
+    @content = TOML.parse(File.read(filename))
   end
 
-  def target_id(keycode)
-    DEFAULT_TARGET_KEYS.index(keycode)
+  def square_key?(keycode)
+    square_keys.includes?(key_from(keycode))
+  end
+
+  def square_id(keycode)
+    raise NoMatchingKey.new unless square_key?(keycode)
+
+    square_keys.index(key_from(keycode))
+  end
+
+  private def key_from(keycode)
+    KEYCODE_KEYS.has_key?(keycode) ? KEYCODE_KEYS[keycode] : keycode
+  end
+
+  private def square_keys
+    keys["squares"].as(Array(TOML::Type)).map { |key| key.to_s }
+  end
+
+  private def keys
+    @content["keys"].as(Hash)
   end
 end

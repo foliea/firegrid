@@ -20,12 +20,14 @@ class UI
     @background.sprite
   end
 
-  def target(keycode : String)
-    return self unless @config.matches_target?(keycode)
+  def select_square(keycode : String)
+    return self unless @config.square_key?(keycode)
 
-    id = @config.target_id(keycode)
+    id = @config.square_id(keycode).as(Int32)
 
-    UI.new(@background, @grid.squares[id || 0].to_grid)
+    return self unless id < @grid.squares.size
+
+    UI.new(@background, @grid.squares[id].to_grid)
   end
 
   private def generate_lines(grid : Grid)
