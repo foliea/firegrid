@@ -32,7 +32,7 @@ describe "Grid" do
         Square.new(640_u32, 600_u32, origin: Position.new(1280_u32, 0_u32)),
         Square.new(640_u32, 600_u32, origin: Position.new(0_u32, 600_u32)),
         Square.new(640_u32, 600_u32, origin: Position.new(640_u32, 600_u32)),
-        Square.new(640_u32, 600_u32, origin: Position.new(1280_u32, 600_u32))
+        Square.new(640_u32, 600_u32, origin: Position.new(1280_u32, 600_u32)),
       ])
     end
   end

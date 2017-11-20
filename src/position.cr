@@ -1,5 +1,4 @@
 class Position
-
   getter :x, :y
 
   def self.default : self
@@ -11,5 +10,4 @@ class Position
   def ==(position : self)
     @x == position.x && @y == position.y
   end
-
 end

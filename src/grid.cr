@@ -2,7 +2,6 @@ require "./position"
 require "./square"
 
 class Grid
-
   MIN_VERTICAL_SQUARE_COUNT = 1_u32
 
   MAX_TOTAL_SQUARE_COUNT = 40_u32
@@ -10,11 +9,10 @@ class Grid
   getter :width, :height, :origin
 
   def initialize(
-    @width : UInt32,
-    @height : UInt32,
-    @origin = Position.default,
-    @max_size = MAX_TOTAL_SQUARE_COUNT
-  ); end
+                 @width : UInt32,
+                 @height : UInt32,
+                 @origin = Position.default,
+                 @max_size = MAX_TOTAL_SQUARE_COUNT); end
 
   def center
     Position.new((@origin.x + @width) / 2, (@origin.y + @height) / 2)
@@ -57,5 +55,4 @@ class Grid
   private def horizontal_squares_count(vertical_count : UInt32)
     (vertical_count * @width.to_f / @height.to_f).floor.to_u32
   end
-
 end

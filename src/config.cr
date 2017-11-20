@@ -1,7 +1,6 @@
 # TODO: Load and use a configuration file
 # Probably a TOML file.
 class Config
-
   DEFAULT_TARGET_KEYS = [
     "a",
     "b",
@@ -40,7 +39,7 @@ class Config
     "backslash",
     "tilde",
     "num1",
-    "num0"
+    "num0",
   ]
 
   def matches_target?(keycode)
@@ -50,5 +49,4 @@ class Config
   def target_id(keycode)
     DEFAULT_TARGET_KEYS.index(keycode)
   end
-
 end

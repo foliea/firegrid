@@ -1,7 +1,6 @@
 require "crsfml"
 
 class Background
-
   @color : SF::Color
   @sprite : SF::Sprite
 
@@ -28,5 +27,4 @@ class Background
   private def texture
     SF::Texture.from_file(@filename)
   end
-
 end

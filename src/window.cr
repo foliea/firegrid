@@ -2,7 +2,6 @@ require "crsfml"
 require "./grid"
 
 class Window
-
   TITLE = "Firegrid"
 
   FRAMERATE_LIMIT = 60
@@ -27,16 +26,16 @@ class Window
         @window.draw(line, SF::Lines)
       end
 
-      @window.display()
+      @window.display
     end
   end
 
   def close
-    @window.close()
+    @window.close
   end
 
   private def watch_events
-    while event = @window.poll_event()
+    while event = @window.poll_event
       case event
       when SF::Event::Closed
         close
@@ -47,5 +46,4 @@ class Window
       end
     end
   end
-
 end

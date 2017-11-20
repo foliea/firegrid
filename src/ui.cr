@@ -4,7 +4,6 @@ require "./config"
 require "./grid"
 
 class UI
-
   @lines : Array(Array(SF::Vertex))
 
   getter :lines
@@ -43,21 +42,20 @@ class UI
     [
       [
         SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y)),
-        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y))
+        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y)),
       ],
       [
         SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y)),
-        SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y + square.height))
+        SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y + square.height)),
       ],
       [
         SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y)),
-        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y + square.height))
+        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y + square.height)),
       ],
       [
         SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y + square.height)),
-        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y + square.height))
-      ]
+        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y + square.height)),
+      ],
     ]
   end
-
 end
