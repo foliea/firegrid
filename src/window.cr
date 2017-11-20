@@ -5,12 +5,14 @@ class Window
 
   TITLE = "Firegrid"
 
+  FRAMERATE_LIMIT = 60
+
   def initialize(@width : UInt32, @height : UInt32, @ui : UI)
-    @window = SF::RenderWindow.new(SF::VideoMode.new(@width, @height), TITLE)
+    @window = SF::RenderWindow.new(SF::VideoMode.new(@width, @height), TITLE, SF::Style::Fullscreen)
 
     @window.vertical_sync_enabled = true
 
-    @window.framerate_limit = 60
+    @window.framerate_limit = FRAMERATE_LIMIT
   end
 
   def open
@@ -29,10 +31,19 @@ class Window
     end
   end
 
+  def close
+    @window.close()
+  end
+
   private def watch_events
     while event = @window.poll_event()
-      if event.is_a?(SF::Event::Closed)
-        @window.close
+      case event
+      when SF::Event::Closed
+        close
+      when SF::Event::KeyPressed
+        close if event.code.escape?
+
+        @ui = @ui.target(event.code.to_s.downcase)
       end
     end
   end

@@ -1,5 +1,6 @@
 require "crsfml"
 require "./background"
+require "./config"
 require "./grid"
 
 class UI
@@ -8,7 +9,7 @@ class UI
 
   getter :lines
 
-  def initialize(@background : Background, @grid : Grid)
+  def initialize(@background : Background, @grid : Grid, @config = Config.new)
     @lines = generate_lines(@grid)
   end
 
@@ -18,6 +19,14 @@ class UI
 
   def background_image
     @background.sprite
+  end
+
+  def target(keycode : String)
+    return self unless @config.matches_target?(keycode)
+
+    id = @config.target_id(keycode)
+
+    UI.new(@background, @grid.squares[id || 0].to_grid)
   end
 
   private def generate_lines(grid : Grid)
