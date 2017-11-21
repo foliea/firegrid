@@ -9,7 +9,7 @@ module Application
 
     background = Background.new(screen.capture)
 
-    grid = Grid.new(screen.width, screen.width)
+    grid = Grid.new(screen.width, screen.height)
 
     ui = UI.new(background, grid, config: Config.new)
 
