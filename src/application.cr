@@ -1,19 +1,21 @@
-require "./screen"
+require "./display"
 require "./background"
 require "./ui"
 require "./window"
 
 module Application
   def self.main
-    screen = Screen.new
+    display = Display.new
 
-    background = Background.new(screen.capture)
+    background = Background.new(display.capture)
 
-    grid = Grid.new(screen.width, screen.height)
+    grid = Grid.new(display.width, display.height)
 
     ui = UI.new(background, grid, config: Config.new)
 
-    Window.new(screen.width, screen.height, ui: ui).open
+    Window.new(display.width, display.height, ui: ui).open
+
+    display.close
   end
 end
 

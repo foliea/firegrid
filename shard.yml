@@ -7,6 +7,9 @@ authors:
 crystal: 0.23.1
 
 dependencies:
+  x11:
+    github: TamasSzekeres/x11-cr
+    branch: master
   crsfml:
     github: oprypin/crsfml
     version: 2.4.10

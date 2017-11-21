@@ -8,3 +8,7 @@ shards:
     github: manastech/crystal-toml
     commit: 763da4033745ab7b39e7a0fe4a4b23f6dc8b7cc6
 
+  x11:
+    github: TamasSzekeres/x11-cr
+    commit: f8faba9ad294be269cdc153e7cb0fcc993581323
+
