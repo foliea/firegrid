@@ -28,7 +28,7 @@ class Config
     "num9"      => "9",
   }
 
-  FILENAME = File.join(ENV["HOME"], ".config/firegrid/firegrid.toml")
+  FILENAME = File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml")
 
   def initialize(filename = FILENAME)
     @content = TOML.parse(File.read(filename))
