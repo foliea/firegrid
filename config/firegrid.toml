@@ -1,3 +1,6 @@
+[font]
+file = "/usr/share/fonts/TTF/DejaVuSans.ttf"
+
 [keys]
 squares = [
   "a",

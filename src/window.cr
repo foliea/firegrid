@@ -26,6 +26,10 @@ class Window
         @window.draw(line, SF::Lines)
       end
 
+      @ui.texts.each do |text|
+        @window.draw(text)
+      end
+
       @window.display
     end
   end

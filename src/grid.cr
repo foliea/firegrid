@@ -13,10 +13,6 @@ class Grid
                  @origin = Position.default,
                  @max_size = MAX_TOTAL_SQUARE_COUNT); end
 
-  def center
-    Position.new((@origin.x + @width) / 2, (@origin.y + @height) / 2)
-  end
-
   def squares
     horizontal_count, vertical_count = squares_count
 

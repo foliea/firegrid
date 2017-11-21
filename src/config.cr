@@ -3,6 +3,7 @@ require "./errors"
 
 # TODO: validate configuration, file presence etc
 # Handle when there is less than 40 keys.
+# Config could also be splitted into multiple files
 class Config
   KEYCODE_KEYS = {
     "lbracket"  => "[",
@@ -34,6 +35,11 @@ class Config
     @content = TOML.parse(File.read(filename))
   end
 
+  # TODO: test this
+  def font_file
+    @content["font"].as(Hash)["file"].as(String)
+  end
+
   def square_key?(keycode)
     square_keys.includes?(key_from(keycode))
   end
@@ -42,6 +48,11 @@ class Config
     raise NoMatchingKey.new unless square_key?(keycode)
 
     square_keys.index(key_from(keycode))
+  end
+
+  # TODO: test this
+  def square_key(id)
+    square_keys[id]
   end
 
   private def key_from(keycode)

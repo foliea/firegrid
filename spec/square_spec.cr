@@ -8,6 +8,14 @@ describe "Square" do
     Square.new(10_u32, 10_u32, origin: origin).origin.should eq(origin)
   end
 
+  describe "#center" do
+    it "returns square center origin" do
+      square = Square.new(50_u32, 50_u32, origin: Position.new(100_u32, 120_u32))
+
+      square.center.should eq(Position.new(125_u32, 145_u32))
+    end
+  end
+
   describe "#to_grid" do
     it "returns a grid with same size and origin" do
       origin = Position.new(50_u32, 40_u32)

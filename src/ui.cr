@@ -5,11 +5,16 @@ require "./grid"
 
 class UI
   @lines : Array(Array(SF::Vertex))
+  @texts : Array(SF::Text)
 
-  getter :lines
+  getter :lines, :texts
 
   def initialize(@background : Background, @grid : Grid, @config : Config)
+    # TODO: move this elsewhere, avoid to load it multiple times
+    @font = SF::Font.from_file(@config.font_file)
+
     @lines = generate_lines(@grid)
+    @texts = generate_texts(@grid)
   end
 
   def background_color
@@ -30,6 +35,19 @@ class UI
     UI.new(@background, @grid.squares[id].to_grid, @config)
   end
 
+  private def generate_texts(grid : Grid)
+    @grid.squares.map do |square|
+      id = @grid.squares.index(square).as(Int32)
+
+      SF::Text.new.tap do |text|
+        text.position = { square.center.x, square.center.y }
+        text.font = @font
+        text.string = @config.square_key(id)
+        text.character_size = (square.width * 0.3).to_i
+      end
+    end
+  end
+
   private def generate_lines(grid : Grid)
     lines = Array(Array(SF::Vertex)).new
 
@@ -41,22 +59,24 @@ class UI
   end
 
   private def square_lines(square : Square)
+    x = square.origin.x.zero? ? 1 : square.origin.x
+    y = square.origin.y.zero? ? 1 : square.origin.y
     [
       [
-        SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y)),
-        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y)),
+        SF::Vertex.new(SF.vector2(x, y)),
+        SF::Vertex.new(SF.vector2(x + square.width, y)),
       ],
       [
-        SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y)),
-        SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y + square.height)),
+        SF::Vertex.new(SF.vector2(x, y)),
+        SF::Vertex.new(SF.vector2(x, y + square.height)),
       ],
       [
-        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y)),
-        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y + square.height)),
+        SF::Vertex.new(SF.vector2(x + square.width, y)),
+        SF::Vertex.new(SF.vector2(x + square.width, y + square.height)),
       ],
       [
-        SF::Vertex.new(SF.vector2(square.origin.x, square.origin.y + square.height)),
-        SF::Vertex.new(SF.vector2(square.origin.x + square.width, square.origin.y + square.height)),
+        SF::Vertex.new(SF.vector2(x, y + square.height)),
+        SF::Vertex.new(SF.vector2(x + square.width, y + square.height)),
       ],
     ]
   end
