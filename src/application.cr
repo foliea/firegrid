@@ -1,22 +1,19 @@
+require "./screen"
 require "./background"
-require "./grid"
 require "./ui"
 require "./window"
 
 module Application
-  # TODO: Resolve resolution dynamically with xrandr lib
-  WIDTH  = 3200_u32
-  HEIGHT = 1800_u32
-
   def self.main
-    # TODO: Capture screen and use the image
-    background = Background.new("/tmp/firegrid.png")
+    screen = Screen.new
 
-    grid = Grid.new(WIDTH, HEIGHT)
+    background = Background.new(screen.capture)
 
-    ui = UI.new(background, grid)
+    grid = Grid.new(screen.width, screen.width)
 
-    Window.new(WIDTH, HEIGHT, ui: ui).open
+    ui = UI.new(background, grid, config: Config.new)
+
+    Window.new(screen.width, screen.height, ui: ui).open
   end
 end
 

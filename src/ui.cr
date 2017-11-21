@@ -8,7 +8,7 @@ class UI
 
   getter :lines
 
-  def initialize(@background : Background, @grid : Grid, @config = Config.new)
+  def initialize(@background : Background, @grid : Grid, @config : Config)
     @lines = generate_lines(@grid)
   end
 
@@ -27,7 +27,7 @@ class UI
 
     return self unless id < @grid.squares.size
 
-    UI.new(@background, @grid.squares[id].to_grid)
+    UI.new(@background, @grid.squares[id].to_grid, @config)
   end
 
   private def generate_lines(grid : Grid)
