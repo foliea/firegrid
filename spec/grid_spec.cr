@@ -38,18 +38,22 @@ describe "Grid" do
   end
 
   describe "==" do
-    it { (Grid.new(0_u32, 0_u32) == Grid.new(1_u32, 1_u32)).should be_false }
+    position = Position.new(1_u32, 1_u32)
 
-    context "when given origin has the same x value" do
-      it { (Grid.new(0_u32, 0_u32) == Grid.new(0_u32, 1_u32)).should be_false }
+    grid = Grid.new(0_u32, 0_u32, origin: position)
+
+    it { (grid == Grid.new(1_u32, 1_u32, origin: Position.new(2_u32, 2_u32))).should be_false }
+
+    context "when given grid has the same width and origin values" do
+      it { (grid == Grid.new(0_u32, 1_u32, origin: position)).should be_false }
     end
 
-    context "when given origin has the same y value" do
-      it { (Grid.new(0_u32, 0_u32) == Grid.new(1_u32, 0_u32)).should be_false }
+    context "when given grid has the same height and width values" do
+      it { (grid == Grid.new(1_u32, 0_u32, origin: position)).should be_false }
     end
 
-    context "when given origin has the same x, y, and origin values" do
-      it { (Grid.new(0_u32, 0_u32) == Grid.new(0_u32, 0_u32)).should be_true }
+    context "when given origin has the same width, height, and origin values" do
+      it { (grid == Grid.new(0_u32, 0_u32, origin: position)).should be_true }
     end
   end
 end

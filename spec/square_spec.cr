@@ -8,35 +8,35 @@ describe "Square" do
     Square.new(10_u32, 10_u32, origin: origin).origin.should eq(origin)
   end
 
-  context "when no origin is given" do
-    it "has default origin" do
-      Square.new(10_u32, 10_u32).origin.should eq(Position.default)
-    end
-  end
-
   describe "#to_grid" do
     it "returns a grid with same size and origin" do
-      square = Square.new(10_u32, 10_u32, origin: Position.new(50_u32, 40_u32))
+      origin = Position.new(50_u32, 40_u32)
 
-      expected_grid = Grid.new(10_u32, 10_u32, origin: Position.new(50_u32, 40_u32))
+      square = Square.new(10_u32, 10_u32, origin: origin)
+
+      expected_grid = Grid.new(10_u32, 10_u32, origin: origin)
 
       square.to_grid.should eq(expected_grid)
     end
   end
 
   describe "==" do
-    it { (Square.new(0_u32, 0_u32) == Square.new(1_u32, 1_u32)).should be_false }
+    position = Position.new(1_u32, 1_u32)
 
-    context "when given origin has the same x value" do
-      it { (Square.new(0_u32, 0_u32) == Square.new(0_u32, 1_u32)).should be_false }
+    square = Square.new(0_u32, 0_u32, origin: position)
+
+    it { (square == Square.new(1_u32, 1_u32, origin: Position.new(2_u32, 2_u32))).should be_false }
+
+    context "when given square has the same width and origin values" do
+      it { (square == Square.new(0_u32, 1_u32, origin: position)).should be_false }
     end
 
-    context "when given origin has the same y value" do
-      it { (Square.new(0_u32, 0_u32) == Square.new(1_u32, 0_u32)).should be_false }
+    context "when given square has the same height and origin values" do
+      it { (square == Square.new(1_u32, 0_u32, origin: position)).should be_false }
     end
 
-    context "when given origin has the same x, y, and origin values" do
-      it { (Square.new(0_u32, 0_u32) == Square.new(0_u32, 0_u32)).should be_true }
+    context "when given origin has the same width, height, and origin values" do
+      it { (square == Square.new(0_u32, 0_u32, origin: position)).should be_true }
     end
   end
 end
