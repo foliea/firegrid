@@ -40,7 +40,7 @@ class UI
       id = @grid.squares.index(square).as(Int32)
 
       SF::Text.new.tap do |text|
-        text.position = { square.center.x, square.center.y }
+        text.position = {square.center.x, square.center.y}
         text.font = @font
         text.string = @config.square_key(id)
         text.character_size = (square.width * 0.3).to_i

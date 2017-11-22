@@ -2,8 +2,7 @@ require "crsfml"
 require "./grid"
 
 class Window
-  TITLE = "Firegrid"
-
+  TITLE           = "Firegrid"
   FRAMERATE_LIMIT = 60
 
   def initialize(@width : UInt32, @height : UInt32, @ui : UI)
