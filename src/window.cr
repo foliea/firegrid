@@ -46,7 +46,7 @@ class Window
       when SF::Event::KeyPressed
         close if event.code.escape?
 
-        @ui = @ui.select_square(event.code.to_s.downcase)
+        @ui = @ui.press_key(event.code.to_s.downcase)
       end
     end
   end

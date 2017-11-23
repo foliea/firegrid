@@ -1,6 +1,6 @@
 require "crsfml"
 require "./background"
-require "./config"
+require "./keybindings"
 require "./grid"
 
 class UI
@@ -9,10 +9,10 @@ class UI
 
   getter :lines, :texts
 
-  def initialize(@background : Background, @grid : Grid, @config : Config)
-    # TODO: move this elsewhere, avoid to load it multiple times
-    @font = SF::Font.from_file(@config.font_file)
-
+  def initialize(@background : Background,
+                 @font : Font,
+                 @keybindings : Keybindings,
+                 @grid : Grid)
     @lines = generate_lines(@grid)
     @texts = generate_texts(@grid)
   end
@@ -21,14 +21,12 @@ class UI
     @background.sprite
   end
 
-  def select_square(keycode : String)
-    return self unless @config.square_key?(keycode)
+  def press_key(keycode : String)
+    return self unless @keybindings.square_key?(keycode)
 
-    id = @config.square_id(keycode).as(Int32)
+    id = @keybindings.square_id(keycode).as(Int32)
 
-    return self unless id < @grid.squares.size
-
-    UI.new(@background, @grid.squares[id].to_grid, @config)
+    UI.new(@background, @font, @keybindings, @grid.squares[id].to_grid)
   end
 
   private def generate_texts(grid : Grid)
@@ -37,8 +35,8 @@ class UI
 
       SF::Text.new.tap do |text|
         text.position = {square.center.x, square.center.y}
-        text.font = @font
-        text.string = @config.square_key(id)
+        text.font = @font.object
+        text.string = @keybindings.square_key(id)
         text.character_size = (square.width * 0.3).to_i
       end
     end

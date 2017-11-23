@@ -1,21 +1,40 @@
+require "./config"
 require "./display"
 require "./background"
 require "./ui"
 require "./window"
 
-module Application
+class Application
   def self.main
-    display = Display.new
+    application = new
+    application.launch
+    application.clean
+  end
 
-    background = Background.new(display.capture)
+  def initialize
+    @config = Config.new
 
-    grid = Grid.new(display.width, display.height)
+    @display = Display.new
+  end
 
-    ui = UI.new(background, grid, config: Config.new)
+  def launch
+    Window.new(@display.width, @display.height, ui: ui).open
+  end
 
-    Window.new(display.width, display.height, ui: ui).open
+  def clean
+    @display.close
+  end
 
-    display.close
+  private def background
+    Background.new(@display.capture)
+  end
+
+  private def grid
+    Grid.new(@display.width, @display.height)
+  end
+
+  private def ui
+    UI.new(background, @config.font, @config.keybindings, grid)
   end
 end
 

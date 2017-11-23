@@ -1,6 +1,5 @@
 require "crsfml"
 
-# TODO: move this in UI, unecessary object here
 class Background
   @sprite : SF::Sprite
 
