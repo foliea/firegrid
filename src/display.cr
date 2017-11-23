@@ -4,19 +4,19 @@ class Display
   private FILENAME = "/tmp/firegrid.png"
 
   def initialize
-    @display = X11::C::X.open_display(nil)
+    @display = X11::Display.new
   end
 
   def close
-    X11::C::X.close_display(@display)
+    @display.close
   end
 
   def width
-    X11::C::X.display_width(@display, current_screen).to_u32
+    @display.width(current_screen).to_u32
   end
 
   def height
-    X11::C::X.display_height(@display, current_screen).to_u32
+    @display.height(current_screen).to_u32
   end
 
   def capture
@@ -26,6 +26,6 @@ class Display
   end
 
   private def current_screen
-    X11::C::X.default_screen(@display)
+    @display.default_screen_number
   end
 end
