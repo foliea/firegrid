@@ -1,19 +1,14 @@
 require "crsfml"
 
+# TODO: move this in UI, unecessary object here
 class Background
-  @color : SF::Color
   @sprite : SF::Sprite
 
-  getter :color, :sprite
+  getter :sprite
 
   # Todo add color code
   def initialize(@filename : String)
-    @color = create_color
     @sprite = create_sprite
-  end
-
-  private def create_color
-    SF::Color.new(112, 197, 206)
   end
 
   private def create_sprite

@@ -17,10 +17,6 @@ class UI
     @texts = generate_texts(@grid)
   end
 
-  def background_color
-    @background.color
-  end
-
   def background_image
     @background.sprite
   end

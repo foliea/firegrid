@@ -3,6 +3,7 @@ require "./grid"
 
 class Window
   TITLE           = "Firegrid"
+  COLOR           = SF::Color::Transparent
   FRAMERATE_LIMIT = 60
 
   def initialize(@width : UInt32, @height : UInt32, @ui : UI)
@@ -17,7 +18,7 @@ class Window
     while @window.open?
       watch_events
 
-      @window.clear(@ui.background_color)
+      @window.clear(COLOR)
 
       @window.draw(@ui.background_image)
 
