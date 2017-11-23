@@ -4,6 +4,8 @@ require "./keybindings"
 require "./grid"
 
 class UI
+  private MIN_SIZE = 75
+
   @lines : Array(Array(SF::Vertex))
   @texts : Array(SF::Text)
 
@@ -29,6 +31,10 @@ class UI
     UI.new(@background, @font, @keybindings, @grid.squares[id].to_grid)
   end
 
+  def too_small?
+    @grid.width <= MIN_SIZE || @grid.height <= MIN_SIZE
+  end
+
   private def generate_texts(grid : Grid)
     @grid.squares.map do |square|
       id = @grid.squares.index(square).as(Int32)
@@ -43,13 +49,11 @@ class UI
   end
 
   private def generate_lines(grid : Grid)
-    lines = Array(Array(SF::Vertex)).new
-
-    grid.squares.each do |square|
-      lines.concat(square_lines(square))
+    Array(Array(SF::Vertex)).new.tap do |lines|
+      grid.squares.each do |square|
+        lines.concat(square_lines(square))
+      end
     end
-
-    lines
   end
 
   private def square_lines(square : Square)
