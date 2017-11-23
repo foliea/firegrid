@@ -1,6 +1,8 @@
 require "x11"
 
 class Display
+  private FILENAME = "/tmp/firegrid.png"
+
   def initialize
     @display = X11::C::X.open_display(nil)
   end
@@ -18,7 +20,9 @@ class Display
   end
 
   def capture
-    "/tmp/firegrid.png"
+    Process.run("wscrot -e 'mv $f #{FILENAME}'")
+
+    FILENAME
   end
 
   private def current_screen
