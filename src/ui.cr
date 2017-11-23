@@ -37,7 +37,7 @@ class UI
         text.position = {square.center.x, square.center.y}
         text.font = @font.object
         text.string = @keybindings.square_key(id)
-        text.character_size = (square.width * 0.3).to_i
+        text.character_size = @font.size
       end
     end
   end

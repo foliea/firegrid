@@ -10,13 +10,17 @@ class Config
   def initialize(filename = FILENAME)
     @content = TOML.parse(File.read(filename))
 
-    @font = Font.new(font_file)
+    @font = Font.new(font_file, size: font_size)
 
     @keybindings = Keybindings.new(keys)
   end
 
   private def font_file
     @content["font"].as(Hash)["file"].as(String)
+  end
+
+  private def font_size
+    @content["font"].as(Hash)["size"].as(Int64).to_u32
   end
 
   private def keys

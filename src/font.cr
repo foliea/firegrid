@@ -1,7 +1,9 @@
 require "crsfml"
 
 class Font
-  def initialize(filename)
+  getter :size
+
+  def initialize(filename, @size : UInt32)
     @font = SF::Font.from_file(filename)
   end
 
