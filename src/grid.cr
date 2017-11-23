@@ -2,8 +2,8 @@ require "./position"
 require "./square"
 
 class Grid
-  MIN_VERTICAL_SQUARE_COUNT =  1_u32
-  MAX_TOTAL_SQUARE_COUNT    = 40_u32
+  private MIN_VERTICAL_SQUARE_COUNT =  1_u32
+  private MAX_TOTAL_SQUARE_COUNT    = 40_u32
 
   getter :width, :height, :origin
 

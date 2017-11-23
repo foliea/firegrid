@@ -2,9 +2,9 @@ require "crsfml"
 require "./grid"
 
 class Window
-  TITLE           = "Firegrid"
-  COLOR           = SF::Color::Transparent
-  FRAMERATE_LIMIT = 60
+  private TITLE           = "Firegrid"
+  private COLOR           = SF::Color::Transparent
+  private FRAMERATE_LIMIT = 60
 
   def initialize(@width : UInt32, @height : UInt32, @ui : UI)
     @window = SF::RenderWindow.new(SF::VideoMode.new(@width, @height), TITLE, SF::Style::Fullscreen)

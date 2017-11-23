@@ -5,7 +5,7 @@ require "./errors"
 # Handle when there is less than 40 keys.
 # Config could also be splitted into multiple files
 class Config
-  KEYCODE_KEYS = {
+  private KEYCODE_KEYS = {
     "lbracket"  => "[",
     "rbracket"  => "]",
     "backslash" => "\\",
@@ -29,7 +29,7 @@ class Config
     "num9"      => "9",
   }
 
-  FILENAME = File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml")
+  private FILENAME = File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml")
 
   def initialize(filename = FILENAME)
     @content = TOML.parse(File.read(filename))
