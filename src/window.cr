@@ -13,7 +13,7 @@ class Window
 
     @window.framerate_limit = FRAMERATE_LIMIT
 
-    @after_close = Proc(Void).new {}
+    @after_close = Proc(Void).new { }
   end
 
   def open
