@@ -20,7 +20,7 @@ class Display
   end
 
   def capture
-    Process.run("wscrot -e 'mv $f #{FILENAME}'")
+    Process.run("scrot #{FILENAME}", shell: true)
 
     FILENAME
   end

@@ -12,6 +12,8 @@ class Window
     @window.vertical_sync_enabled = true
 
     @window.framerate_limit = FRAMERATE_LIMIT
+
+    @after_close = Proc(Void).new {}
   end
 
   def open
@@ -32,9 +34,10 @@ class Window
 
       @window.display
     end
+    @after_close.call
   end
 
-  def close
+  private def close
     @window.close
   end
 
@@ -44,9 +47,21 @@ class Window
       when SF::Event::Closed
         close
       when SF::Event::KeyPressed
-        close if event.code.escape? || @ui.too_small?
+        keycode = event.code.to_s.downcase
 
-        @ui = @ui.press_key(event.code.to_s.downcase)
+        return close unless @ui.known_key?(keycode)
+
+        if @ui.too_small?
+          selection = @ui.selection(keycode)
+
+          @after_close = Proc(Void).new do
+            Process.run("xdotool mousemove #{selection.x} #{selection.y} click 1", shell: true)
+          end
+
+          close
+        end
+
+        @ui = @ui.press_key(keycode)
       end
     end
   end

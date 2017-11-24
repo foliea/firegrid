@@ -23,16 +23,27 @@ class UI
     @background.sprite
   end
 
+  def known_key?(keycode : String)
+    @keybindings.square_key?(keycode)
+  end
+
   def press_key(keycode : String)
-    return self unless @keybindings.square_key?(keycode)
 
-    id = @keybindings.square_id(keycode).as(Int32)
+    UI.new(@background, @font, @keybindings, selected_square(keycode).to_grid)
+  end
 
-    UI.new(@background, @font, @keybindings, @grid.squares[id].to_grid)
+  def selection(keycode : String)
+    selected_square(keycode).center
   end
 
   def too_small?
     @grid.width <= MIN_SIZE || @grid.height <= MIN_SIZE
+  end
+
+  private def selected_square(keycode)
+    id = @keybindings.square_id(keycode).as(Int32)
+
+    @grid.squares[id]
   end
 
   private def generate_texts(grid : Grid)
