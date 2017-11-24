@@ -56,6 +56,7 @@ class UI
         text.font = @font.object
         text.string = @keybindings.square_key(id)
         text.character_size = @font.size
+        text.style = SF::Text::Bold
       end
     end
   end
