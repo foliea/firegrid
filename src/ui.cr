@@ -13,7 +13,6 @@ class UI
 
   def initialize(@background : Background,
                  @font : Font,
-                 @keybindings : Keybindings,
                  @grid : Grid)
     color = SF::Color::Red
     @lines = generate_lines(@grid)
@@ -24,37 +23,25 @@ class UI
     @background.sprite
   end
 
-  def known_key?(keycode : String)
-    @keybindings.square_key?(keycode)
+  def focus(square_id)
+    UI.new(@background, @font, square(square_id).to_grid)
   end
 
-  def press_key(keycode : String)
-    UI.new(@background, @font, @keybindings, selected_square(keycode).to_grid)
-  end
-
-  def selection(keycode : String)
-    selected_square(keycode).center
+  def square(id)
+    @grid.squares[id]
   end
 
   def too_small?
     @grid.width <= MIN_SIZE || @grid.height <= MIN_SIZE
   end
 
-  private def selected_square(keycode)
-    id = @keybindings.square_id(keycode).as(Int32)
-
-    @grid.squares[id]
-  end
-
   private def generate_texts(grid : Grid)
-    @grid.squares.map do |square|
-      id = @grid.squares.index(square).as(Int32)
-
+    @grid.squares.map_with_index do |square, square_id|
       SF::Text.new.tap do |text|
         text.position = {square.center.x, square.center.y}
         text.color = SF::Color::Red
         text.font = @font.object
-        text.string = @keybindings.square_key(id)
+        text.string = square_id.to_s
         text.character_size = @font.size
         text.style = SF::Text::Bold
       end

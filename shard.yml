@@ -4,7 +4,7 @@ version: 0.1.0
 authors:
   - Adrien Folie <folie.adrien@gmail.com>
 
-crystal: 0.23.1
+crystal: 0.23.0
 
 dependencies:
   x11:

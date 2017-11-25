@@ -34,7 +34,7 @@ class Keybindings
   def square_id(keycode)
     raise NoMatchingKey.new unless square_key?(keycode)
 
-    @keys["squares"].index(key_from(keycode))
+    @keys["squares"].index(key_from(keycode)).not_nil!
   end
 
   def square_key(id)

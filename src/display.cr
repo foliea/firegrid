@@ -25,6 +25,10 @@ class Display
     FILENAME
   end
 
+  def click(position : Position)
+    Process.run("xdotool mousemove #{position.x} #{position.y} click 1", shell: true)
+  end
+
   private def current_screen
     @display.default_screen_number
   end
