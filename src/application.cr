@@ -18,7 +18,7 @@ class Application
   end
 
   def launch
-    Window.new(@display, keybindings: @config.keybindings, ui: ui).wait
+    Window.new(@display, background: background, keybindings: @config.keybindings, ui: ui).wait
   end
 
   def clean
@@ -34,7 +34,7 @@ class Application
   end
 
   private def ui
-    UI.new(background, @config.font, grid)
+    UI.new(@config.font, grid)
   end
 end
 

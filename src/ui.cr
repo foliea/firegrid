@@ -11,26 +11,20 @@ class UI
 
   getter :lines, :texts
 
-  def initialize(@background : Background,
-                 @font : Font,
-                 @grid : Grid)
+  def initialize(@font : Font, @grid : Grid)
     @lines = generate_lines(@grid)
     @texts = generate_texts(@grid)
   end
 
-  def background_image
-    @background.sprite
-  end
-
   def focus(square_id)
-    UI.new(@background, @font, square(square_id).to_grid)
+    self.class.new(@font, @grid.squares[square_id].to_grid)
   end
 
-  def square(id)
-    @grid.squares[id]
+  def target(square_id)
+    @grid.squares[square_id].center
   end
 
-  def too_small?
+  def targetable?
     @grid.width <= MIN_SIZE || @grid.height <= MIN_SIZE
   end
 

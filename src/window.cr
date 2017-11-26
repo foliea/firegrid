@@ -7,7 +7,7 @@ class Window
   private TITLE           = "Firegrid"
   private FRAMERATE_LIMIT = 60
 
-  def initialize(@display : Display, @keybindings : Keybindings, @ui : UI)
+  def initialize(@display : Display, @background : Background, @keybindings : Keybindings, @ui : UI)
     mode = SF::VideoMode.new(@display.width, @display.height)
 
     @window = SF::RenderWindow.new(mode, TITLE, STYLE)
@@ -29,7 +29,7 @@ class Window
   private def draw
     @window.clear(COLOR)
 
-    @window.draw(@ui.background_image)
+    @window.draw(@background.sprite)
 
     @ui.lines.each do |line|
       @window.draw(line, SF::Lines)
@@ -52,13 +52,13 @@ class Window
 
       square_id = @keybindings.square_id(keycode)
 
-      return close(@ui.square(square_id).center) if @ui.too_small?
+      return close_and_click(@ui.target(square_id)) if @ui.targetable?
 
       @ui = @ui.focus(square_id)
     end
   end
 
-  private def close(selection : Position)
+  private def close_and_click(selection : Position)
     close
 
     @display.click(selection)
