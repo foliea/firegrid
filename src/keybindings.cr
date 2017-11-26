@@ -38,6 +38,8 @@ class Keybindings
   end
 
   def square_key(id)
+    raise NoMatchingKey.new unless (0..@keys["squares"].size).includes?(id)
+
     @keys["squares"][id]
   end
 
