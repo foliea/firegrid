@@ -26,7 +26,7 @@ class Config
   end
 
   def font
-    @_font ||= Font.new(font_file, size: font_size, color_code: font_color_code)
+    @_font ||= Font.new(font_file, color_code: font_color_code)
   end
 
   def decoration
@@ -39,10 +39,6 @@ class Config
 
   private def font_file
     @content["font"].as(Hash)["file"].as(String)
-  end
-
-  private def font_size
-    @content["font"].as(Hash)["size"].as(Int64).to_u32
   end
 
   private def font_color_code
