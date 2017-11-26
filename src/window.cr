@@ -50,11 +50,13 @@ class Window
 
       return close unless @keybindings.square_key?(keycode)
 
-      square_id = @keybindings.square_id(keycode)
+      target = @ui.targets[@keybindings.square_id(keycode)]
 
-      return close_and_click(@ui.target(square_id)) if @ui.targetable?
+      if target.precise_for?(@display.width, @display.height)
+        return close_and_click(target.center)
+      end
 
-      @ui = @ui.focus(square_id)
+      @ui = @ui.focus(target.to_grid)
     end
   end
 

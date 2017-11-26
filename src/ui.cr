@@ -5,8 +5,6 @@ require "./grid"
 require "./decoration"
 
 class UI
-  private MIN_SIZE = 75
-
   @lines : Array(Array(SF::Vertex))
   @texts : Array(SF::Text)
 
@@ -17,16 +15,12 @@ class UI
     @texts = generate_texts(@grid)
   end
 
-  def focus(square_id)
-    self.class.new(@font, @decoration, @grid.squares[square_id].to_grid)
+  def focus(grid : Grid)
+    self.class.new(@font, @decoration, grid)
   end
 
-  def target(square_id)
-    @grid.squares[square_id].center
-  end
-
-  def targetable?
-    @grid.width <= MIN_SIZE || @grid.height <= MIN_SIZE
+  def targets
+    @grid.squares
   end
 
   private def generate_texts(grid : Grid)
