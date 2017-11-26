@@ -1,3 +1,5 @@
+border-color = [214, 66, 55, 100]
+
 [font]
 file = "/usr/share/fonts/TTF/DejaVuSans.ttf"
 size = 22

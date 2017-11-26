@@ -34,7 +34,7 @@ class Application
   end
 
   private def ui
-    UI.new(@config.font, grid)
+    UI.new(@config.font, @config.decoration, grid)
   end
 end
 

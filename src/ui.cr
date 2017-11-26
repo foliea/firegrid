@@ -2,6 +2,7 @@ require "crsfml"
 require "./background"
 require "./keybindings"
 require "./grid"
+require "./decoration"
 
 class UI
   private MIN_SIZE = 75
@@ -11,13 +12,13 @@ class UI
 
   getter :lines, :texts
 
-  def initialize(@font : Font, @grid : Grid)
+  def initialize(@font : Font, @decoration : Decoration, @grid : Grid)
     @lines = generate_lines(@grid)
     @texts = generate_texts(@grid)
   end
 
   def focus(square_id)
-    self.class.new(@font, @grid.squares[square_id].to_grid)
+    self.class.new(@font, @decoration, @grid.squares[square_id].to_grid)
   end
 
   def target(square_id)
@@ -34,7 +35,7 @@ class UI
         text.position = {square.center.x, square.center.y}
         text.color = @font.color
         text.font = @font.to_sf_font
-        text.string = square_id.to_s
+        text.string = @decoration.label(square_id)
         text.character_size = @font.size
         text.style = SF::Text::Bold
       end
@@ -54,20 +55,20 @@ class UI
     y = square.origin.y.zero? ? 1 : square.origin.y
     [
       [
-        SF::Vertex.new(SF.vector2(x, y), @font.color),
-        SF::Vertex.new(SF.vector2(x + square.width, y), @font.color),
+        SF::Vertex.new(SF.vector2(x, y), @decoration.border_color),
+        SF::Vertex.new(SF.vector2(x + square.width, y), @decoration.border_color),
       ],
       [
-        SF::Vertex.new(SF.vector2(x, y), @font.color),
-        SF::Vertex.new(SF.vector2(x, y + square.height), @font.color),
+        SF::Vertex.new(SF.vector2(x, y), @decoration.border_color),
+        SF::Vertex.new(SF.vector2(x, y + square.height), @decoration.border_color),
       ],
       [
-        SF::Vertex.new(SF.vector2(x + square.width, y), @font.color),
-        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), @font.color),
+        SF::Vertex.new(SF.vector2(x + square.width, y), @decoration.border_color),
+        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), @decoration.border_color),
       ],
       [
-        SF::Vertex.new(SF.vector2(x, y + square.height), @font.color),
-        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), @font.color),
+        SF::Vertex.new(SF.vector2(x, y + square.height), @decoration.border_color),
+        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), @decoration.border_color),
       ],
     ]
   end

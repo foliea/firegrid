@@ -1,6 +1,7 @@
 require "toml"
 require "./font"
 require "./keybindings"
+require "./decoration"
 
 class Config
   private ALL_FILENAMES = [
@@ -26,6 +27,14 @@ class Config
 
   def font
     @_font ||= Font.new(font_file, size: font_size, color_code: font_color_code)
+  end
+
+  def decoration
+    @_decoration ||= Decoration.new(border_color_code, square_keys)
+  end
+
+  private def border_color_code
+    @content["border-color"].as(Array(TOML::Type)).map { |key| key.to_s.to_u32 }
   end
 
   private def font_file
