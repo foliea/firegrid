@@ -61,7 +61,7 @@ class Window
   private def close(selection : Position)
     close
 
-    @display.click(selection) if selection
+    @display.click(selection)
   end
 
   private def close
