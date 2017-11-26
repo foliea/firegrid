@@ -12,7 +12,7 @@ class Application
   end
 
   def initialize
-    @config = Config.new
+    @config = Config.default
 
     @display = Display.new
   end

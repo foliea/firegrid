@@ -3,10 +3,21 @@ require "./font"
 require "./keybindings"
 
 class Config
-  private FILENAME = File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml")
+  private ALL_FILENAMES = [
+    File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml"),
+    File.join(ENV["HOME"], ".firegrid"),
+    File.join("etc", "firegrid", "firegrid.toml"),
+  ]
 
-  def initialize(filename = FILENAME)
-    @content = TOML.parse(File.read(filename))
+  def self.default : self
+    ALL_FILENAMES.each do |filename|
+      return new(File.read(filename), filename) if File.exists?(filename)
+    end
+    raise InvalidConfiguration.new("Configuration file not found! (#{ALL_FILENAMES})")
+  end
+
+  def initialize(body : String, @filename : String)
+    @content = TOML.parse(body)
   end
 
   def keybindings
