@@ -5,7 +5,6 @@ class Background
 
   getter :sprite
 
-  # Todo add color code
   def initialize(@filename : String)
     @sprite = create_sprite
   end

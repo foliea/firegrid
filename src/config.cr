@@ -5,14 +5,16 @@ require "./keybindings"
 class Config
   private FILENAME = File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml")
 
-  getter :font, :keybindings
-
   def initialize(filename = FILENAME)
     @content = TOML.parse(File.read(filename))
+  end
 
-    @font = Font.new(font_file, size: font_size, color_code: font_color_code)
+  def keybindings
+    @_keybindings ||= Keybindings.new(keys)
+  end
 
-    @keybindings = Keybindings.new(keys)
+  def font
+    @_font ||= Font.new(font_file, size: font_size, color_code: font_color_code)
   end
 
   private def font_file
