@@ -14,7 +14,6 @@ class UI
   def initialize(@background : Background,
                  @font : Font,
                  @grid : Grid)
-    color = SF::Color::Red
     @lines = generate_lines(@grid)
     @texts = generate_texts(@grid)
   end
@@ -39,8 +38,8 @@ class UI
     @grid.squares.map_with_index do |square, square_id|
       SF::Text.new.tap do |text|
         text.position = {square.center.x, square.center.y}
-        text.color = SF::Color::Red
-        text.font = @font.object
+        text.color = @font.color
+        text.font = @font.to_sf_font
         text.string = square_id.to_s
         text.character_size = @font.size
         text.style = SF::Text::Bold
@@ -59,23 +58,22 @@ class UI
   private def square_lines(square : Square)
     x = square.origin.x.zero? ? 1 : square.origin.x
     y = square.origin.y.zero? ? 1 : square.origin.y
-    color = SF::Color::Red
     [
       [
-        SF::Vertex.new(SF.vector2(x, y), color),
-        SF::Vertex.new(SF.vector2(x + square.width, y), color),
+        SF::Vertex.new(SF.vector2(x, y), @font.color),
+        SF::Vertex.new(SF.vector2(x + square.width, y), @font.color),
       ],
       [
-        SF::Vertex.new(SF.vector2(x, y), color),
-        SF::Vertex.new(SF.vector2(x, y + square.height), color),
+        SF::Vertex.new(SF.vector2(x, y), @font.color),
+        SF::Vertex.new(SF.vector2(x, y + square.height), @font.color),
       ],
       [
-        SF::Vertex.new(SF.vector2(x + square.width, y), color),
-        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), color),
+        SF::Vertex.new(SF.vector2(x + square.width, y), @font.color),
+        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), @font.color),
       ],
       [
-        SF::Vertex.new(SF.vector2(x, y + square.height), color),
-        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), color),
+        SF::Vertex.new(SF.vector2(x, y + square.height), @font.color),
+        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), @font.color),
       ],
     ]
   end

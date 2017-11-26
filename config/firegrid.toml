@@ -1,6 +1,7 @@
 [font]
 file = "/usr/share/fonts/TTF/DejaVuSans.ttf"
 size = 22
+color = [214, 66, 55, 100]
 
 [keys]
 squares = [
