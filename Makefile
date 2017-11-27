@@ -1,23 +1,16 @@
-.PHONY: all install build dev
-
-VENDOR_PATH := $(PWD)/vendor/voidcsfml
-
-CONFIG_TARGET_PATH := $(HOME)/.config/firegrid
+.PHONY: all dependencies install dev
 
 MAIN := $(PWD)/src/application.cr
 
-crystal := LIBRARY_PATH=$(VENDOR_PATH) LD_LIBRARY_PATH=$(VENDOR_PATH) crystal
+all: install
 
-all: install build
+dependencies:
+	crystal deps update
 
-install:
-	rm -rf $(CONFIG_TARGET_PATH)
-	ln -s $(PWD)/config $(CONFIG_TARGET_PATH)
-
-build:
-	$(crystal) build $(MAIN)
+install: dependencies
+	crystal build $(MAIN)
 
 	mv application bin/firegrid
 
 dev:
-	$(crystal) run $(MAIN)
+	crystal run $(MAIN)
