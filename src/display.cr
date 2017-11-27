@@ -20,9 +20,9 @@ class Display
   end
 
   def capture
-    Process.run("scrot #{FILENAME}", shell: true)
+    Process.run("import -window root -display :0 --screen #{FILENAME}", shell: true)
 
-    FILENAME
+    FILENAME.gsub(".", "-#{current_screen}.")
   end
 
   def click(position : Position)
