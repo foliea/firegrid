@@ -56,7 +56,7 @@ class Window
         return close_and_click(target.center)
       end
 
-      @ui = @ui.focus(target.to_grid)
+      @ui = @ui.focus(target.to_grid.resize_for(@display.width, @display.height))
     end
   end
 

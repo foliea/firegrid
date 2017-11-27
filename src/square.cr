@@ -1,7 +1,7 @@
 require "./grid"
 
 class Square
-  private PRECISON_RATE = 1
+  private PRECISON_RATE = 1_u32
 
   getter :width, :height, :origin
 

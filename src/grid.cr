@@ -2,8 +2,10 @@ require "./position"
 require "./square"
 
 class Grid
-  private MIN_VERTICAL_SQUARE_COUNT =  1_u32
-  private MAX_TOTAL_SQUARE_COUNT    = 40_u32
+  private MIN_VERTICAL_SQUARE_COUNT      =  1_u32
+  private MAX_TOTAL_SQUARE_COUNT         = 40_u32
+  private RESIZED_MAX_TOTAL_SQUARE_COUNT =  4_u32
+  private RESIZE_REQUIRED_RATE           =  2_u32
 
   getter :width, :height, :origin
 
@@ -12,6 +14,12 @@ class Grid
                  @height : UInt32,
                  @origin = Position.default,
                  @max_size = MAX_TOTAL_SQUARE_COUNT); end
+
+  def resize_for(width : UInt32, height : UInt32)
+    return self unless resize_for?(width, height)
+
+    self.class.new(@width, @height, @origin, RESIZED_MAX_TOTAL_SQUARE_COUNT)
+  end
 
   def squares
     horizontal_count, vertical_count = squares_count
@@ -33,6 +41,11 @@ class Grid
 
   def ==(grid : self)
     @width == grid.width && @height == grid.height && @origin == grid.origin
+  end
+
+  private def resize_for?(width : UInt32, height : UInt32)
+    @width <= width * RESIZE_REQUIRED_RATE / 100 ||
+      @height <= height * RESIZE_REQUIRED_RATE / 100
   end
 
   private def squares_count(vertical_count = MIN_VERTICAL_SQUARE_COUNT)
