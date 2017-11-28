@@ -4,9 +4,9 @@ class Font
   def initialize(@filename : String, @color_code : Array(UInt32)); end
 
   def color
-    red, green, blue, alpha = @color_code
+    red, green, blue = @color_code
 
-    SF::Color.new(red, green, blue, alpha)
+    SF::Color.new(red, green, blue)
   end
 
   def to_sf_font

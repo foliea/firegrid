@@ -1,8 +1,8 @@
-border-color = [214, 66, 55, 100]
+border-color = [214, 73, 55]
 
 [font]
-file = "/usr/share/fonts/TTF/DejaVuSans.ttf"
-color = [214, 66, 55, 100]
+file = "/usr/share/fonts/noto/NotoSansMono-Regular.ttf"
+color = [214, 73, 55]
 
 [keys]
 squares = [
