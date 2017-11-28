@@ -5,7 +5,7 @@ class Grid
   private MIN_VERTICAL_SQUARE_COUNT      =  1_u32
   private MAX_TOTAL_SQUARE_COUNT         = 40_u32
   private RESIZED_MAX_TOTAL_SQUARE_COUNT =  4_u32
-  private RESIZE_REQUIRED_RATE           =  2_u32
+  private RESIZE_REQUIRED_RATE           =  5_u32
 
   getter :width, :height, :origin
 
