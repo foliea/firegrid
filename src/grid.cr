@@ -7,7 +7,7 @@ class Grid
   private RESIZED_MAX_TOTAL_SQUARE_COUNT =  4_u32
   private RESIZE_REQUIRED_RATE           =  5_u32
 
-  getter :width, :height, :origin
+  getter :width, :height, :origin, :max_size
 
   def initialize(
                  @width : UInt32,

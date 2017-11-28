@@ -14,6 +14,26 @@ describe "Grid" do
     end
   end
 
+  describe "#resize_for" do
+    grid = Grid.new(10_u32, 10_u32, origin: Position.new(0_u32, 0_u32))
+
+    it "returns the original grid" do
+      grid.resize_for(20_u32, 20_u32).should eq(grid)
+    end
+
+    context "when grid width is below precision rate of given width" do
+      it "returns a new grid with a lower max size" do
+        grid.resize_for(400_u32, 20_u32).max_size.should eq(4_u32)
+      end
+    end
+
+    context "when grid height is below precision rate of given height" do
+      it "returns a new grid with a lower max size" do
+        grid.resize_for(20_u32, 400_u32).max_size.should eq(4_u32)
+      end
+    end
+  end
+
   describe "#squares" do
     it "creates and return grid squares" do
       grid = Grid.new(1920_u32, 1200_u32, max_size: 6_u32)

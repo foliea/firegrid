@@ -8,6 +8,20 @@ describe "Square" do
     Square.new(10_u32, 10_u32, origin: origin).origin.should eq(origin)
   end
 
+  describe "#precise_for?" do
+    square = Square.new(10_u32, 10_u32, origin: Position.new(0_u32, 0_u32))
+
+    it { square.precise_for?(20_u32, 20_u32).should be_false }
+
+    context "when square width is below precision rate of given width" do
+      it { square.precise_for?(500_u32, 20_u32).should be_true }
+    end
+
+    context "when square height is below precision rate of given height" do
+      it { square.precise_for?(20_u32, 500_u32).should be_true }
+    end
+  end
+
   describe "#center" do
     it "returns square center origin" do
       square = Square.new(50_u32, 50_u32, origin: Position.new(100_u32, 120_u32))
