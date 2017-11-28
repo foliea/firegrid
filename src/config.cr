@@ -7,7 +7,7 @@ class Config
   private ALL_FILENAMES = [
     File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml"),
     File.join(ENV["HOME"], ".firegrid"),
-    File.join("etc", "firegrid", "firegrid.toml"),
+    File.join("/etc", "firegrid", "firegrid.toml"),
   ]
 
   def self.default : self
