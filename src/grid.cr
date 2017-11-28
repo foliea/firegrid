@@ -22,15 +22,15 @@ class Grid
   end
 
   def squares
-    horizontal_count, vertical_count = squares_count
+    horizontal_count, vertical_count = format
 
-    max = horizontal_count * vertical_count - 1
+    size = horizontal_count * vertical_count
 
     square_width = @width / horizontal_count
 
     square_height = @height / vertical_count
 
-    (0..max).map do |index|
+    (0..size - 1).map do |index|
       square_origin = Position.new(
         @origin.x + (index - horizontal_count * (index / horizontal_count)) * square_width,
         @origin.y + index / horizontal_count * square_height
@@ -48,7 +48,7 @@ class Grid
       @height <= height * RESIZE_REQUIRED_RATE / 100
   end
 
-  private def squares_count(vertical_count = MIN_VERTICAL_SQUARE_COUNT)
+  private def format(vertical_count = MIN_VERTICAL_SQUARE_COUNT)
     horizontal_count = horizontal_squares_count(vertical_count)
 
     total_count = horizontal_count * vertical_count
@@ -57,7 +57,7 @@ class Grid
       return [horizontal_squares_count(vertical_count - 1), vertical_count - 1]
     end
 
-    squares_count(vertical_count + 1)
+    format(vertical_count + 1)
   end
 
   private def horizontal_squares_count(vertical_count : UInt32)
