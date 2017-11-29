@@ -1,7 +1,5 @@
 language: crystal
 install:
-  - make install
-  - crystal deps install
+  - make dependencies
 script:
-  - crystal spec
-  - crystal tool format --check src spec
+  - make test
