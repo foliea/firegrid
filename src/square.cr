@@ -1,6 +1,7 @@
 require "./grid"
 require "./border"
 require "./position"
+require "./label"
 
 class Square
   private PRECISON_RATE = 2_u32
@@ -15,6 +16,14 @@ class Square
 
   def center
     Position.new(@origin.x + @width / 2, @origin.y + @height / 2)
+  end
+
+  def label
+    label_size = (@width < @height ? @width : @height) / 2
+
+    label_origin = Position.new(center.x - label_size / 2, center.y - label_size / 2)
+
+    Label.new(label_origin, label_size)
   end
 
   def borders

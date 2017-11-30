@@ -25,14 +25,12 @@ class UI
 
   private def generate_texts(grid : Grid)
     @grid.squares.map_with_index do |square, square_id|
-      font_size = (square.width < square.height ? square.width : square.height) / 2
-
       SF::Text.new.tap do |text|
-        text.position = {square.center.x - font_size / 2.0, square.center.y - font_size / 2.0}
+        text.position = {square.label.origin.x, square.label.origin.y}
         text.color = @font.color
         text.font = @font.to_sf_font
         text.string = @decoration.label(square_id)
-        text.character_size = font_size
+        text.character_size = square.label.size
         text.style = SF::Text::Bold
       end
     end
