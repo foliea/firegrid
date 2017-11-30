@@ -30,6 +30,39 @@ describe "Square" do
     end
   end
 
+  describe "#borders" do
+    origin = Position.new(10_u32, 20_u32)
+
+    square = Square.new(100_u32, 50_u32, origin: origin)
+
+    it "returns square borders" do
+      square.borders["top"].should eq(
+        Border.new(
+          Position.new(10_u32, 20_u32),
+          Position.new(110_u32, 20_u32),
+        )
+      )
+      square.borders["left"].should eq(
+        Border.new(
+          Position.new(10_u32, 20_u32),
+          Position.new(10_u32, 70_u32),
+        )
+      )
+      square.borders["right"].should eq(
+        Border.new(
+          Position.new(110_u32, 20_u32),
+          Position.new(110_u32, 70_u32),
+        )
+      )
+      square.borders["bottom"].should eq(
+        Border.new(
+          Position.new(10_u32, 70_u32),
+          Position.new(110_u32, 70_u32),
+        )
+      )
+    end
+  end
+
   describe "#to_grid" do
     it "returns a grid with same size and origin" do
       origin = Position.new(50_u32, 40_u32)

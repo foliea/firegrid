@@ -47,25 +47,11 @@ class UI
   end
 
   private def square_lines(square : Square)
-    x = square.origin.x.zero? ? 1 : square.origin.x
-    y = square.origin.y.zero? ? 1 : square.origin.y
-    [
+    square.borders.values.map do |border|
       [
-        SF::Vertex.new(SF.vector2(x, y), @decoration.border_color),
-        SF::Vertex.new(SF.vector2(x + square.width, y), @decoration.border_color),
-      ],
-      [
-        SF::Vertex.new(SF.vector2(x, y), @decoration.border_color),
-        SF::Vertex.new(SF.vector2(x, y + square.height), @decoration.border_color),
-      ],
-      [
-        SF::Vertex.new(SF.vector2(x + square.width, y), @decoration.border_color),
-        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), @decoration.border_color),
-      ],
-      [
-        SF::Vertex.new(SF.vector2(x, y + square.height), @decoration.border_color),
-        SF::Vertex.new(SF.vector2(x + square.width, y + square.height), @decoration.border_color),
-      ],
-    ]
+        SF::Vertex.new(SF.vector2(border.origin.x, border.origin.y), @decoration.border_color),
+        SF::Vertex.new(SF.vector2(border.end.x, border.end.y), @decoration.border_color),
+      ]
+    end
   end
 end

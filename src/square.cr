@@ -1,4 +1,6 @@
 require "./grid"
+require "./border"
+require "./position"
 
 class Square
   private PRECISON_RATE = 2_u32
@@ -13,6 +15,25 @@ class Square
 
   def center
     Position.new(@origin.x + @width / 2, @origin.y + @height / 2)
+  end
+
+  def borders
+    x = @origin.x.zero? ? 1_u32 : @origin.x
+    y = @origin.y.zero? ? 1_u32 : @origin.y
+    {
+      "top" => Border.new(
+        Position.new(x, y), Position.new(x + @width, y)
+      ),
+      "left" => Border.new(
+        Position.new(x, y), Position.new(x, y + @height)
+      ),
+      "right" => Border.new(
+        Position.new(x + @width, y), Position.new(x + @width, y + @height)
+      ),
+      "bottom" => Border.new(
+        Position.new(x, y + @height), Position.new(x + @width, y + @height)
+      ),
+    }
   end
 
   def to_grid
