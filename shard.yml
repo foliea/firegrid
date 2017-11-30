@@ -7,12 +7,9 @@ authors:
 crystal: 0.23.0
 
 dependencies:
-  x11:
-    github: TamasSzekeres/x11-cr
-    branch: master
-  crsfml:
-    github: oprypin/crsfml
-    version: 2.4.10
+  qt5:
+    github: Papierkorb/qt5.cr
+    branch: master-ready-to-use
   toml:
     github: manastech/crystal-toml
     branch: master

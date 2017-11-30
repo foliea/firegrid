@@ -1,7 +1,5 @@
 require "toml"
-require "./font"
 require "./keybindings"
-require "./decoration"
 
 class Config
   private ALL_FILENAMES = [
@@ -21,28 +19,16 @@ class Config
     @content = TOML.parse(body)
   end
 
+  def border_color
+    @content["colors"].as(Hash)["border"].as(String)
+  end
+
+  def font_color
+    @content["colors"].as(Hash)["border"].as(String)
+  end
+
   def keybindings
     @_keybindings ||= Keybindings.new(keys)
-  end
-
-  def font
-    @_font ||= Font.new(font_file, color_code: font_color_code)
-  end
-
-  def decoration
-    @_decoration ||= Decoration.new(border_color_code, square_keys)
-  end
-
-  private def border_color_code
-    @content["border-color"].as(Array(TOML::Type)).map { |key| key.to_s.to_u32 }
-  end
-
-  private def font_file
-    @content["font"].as(Hash)["file"].as(String)
-  end
-
-  private def font_color_code
-    @content["font"].as(Hash)["color"].as(Array(TOML::Type)).map { |key| key.to_s.to_u32 }
   end
 
   private def keys

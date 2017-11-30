@@ -1,14 +1,18 @@
 version: 1.0
 shards:
-  crsfml:
-    github: oprypin/crsfml
-    version: 2.4.10
+  bindgen:
+    github: Papierkorb/bindgen
+    commit: 8dbedf30efc93d9acc24c54813f4d5fcfbaac7c2
+
+  qt5:
+    github: Papierkorb/qt5.cr
+    commit: fc512821128cf1997363dff4ef1e3a93c65cbde7
+
+  toka:
+    github: Papierkorb/toka
+    version: 0.1.1
 
   toml:
     github: manastech/crystal-toml
     commit: 763da4033745ab7b39e7a0fe4a4b23f6dc8b7cc6
-
-  x11:
-    github: TamasSzekeres/x11-cr
-    commit: f8faba9ad294be269cdc153e7cb0fcc993581323
 
