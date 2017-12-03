@@ -4,7 +4,7 @@ require "./config"
 require "./grid"
 
 class Overlay < Qt::Widget
-  def initialize(@screen = Screen.new, @config = Config.default, *args)
+  def initialize(@screen : Screen, @config : Config, *args)
     super(*args)
 
     @grid = Grid.new(@screen.width, @screen.height)
@@ -21,9 +21,19 @@ class Overlay < Qt::Widget
       texts.each_with_index do |t, square_id|
         p.font.point_size = t.size.to_i
 
-        p.draw_text(Qt::Point.new(t.origin.x, t.origin.y), keybindings.square_key(square_id))
+        p.draw_text(Qt::Point.new(t.origin.x, t.origin.y), text_label(square_id))
       end
     end
+  end
+
+  def select(square_id)
+    square = @grid.squares[square_id]
+
+    return square.center if square.precise_for?(@screen.width, @screen.height)
+
+    @grid = square.to_grid.resize_for(@screen.width, @screen.height)
+
+    repaint
   end
 
   private def lines
@@ -34,7 +44,7 @@ class Overlay < Qt::Widget
     @grid.squares.map { |square| square.label }
   end
 
-  private def keybindings
-    @config.keybindings
+  private def text_label(id)
+    @config.keybindings.square_key(id)
   end
 end

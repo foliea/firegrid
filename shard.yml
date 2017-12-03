@@ -8,8 +8,8 @@ crystal: 0.23.0
 
 dependencies:
   qt5:
-    github: Papierkorb/qt5.cr
-    branch: master-ready-to-use
+    github: foliea/qt5.cr
+    branch: patch-1
   toml:
     github: manastech/crystal-toml
     branch: master
