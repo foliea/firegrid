@@ -31,6 +31,8 @@ class Overlay < Qt::Widget
     painter.pen = Qt::Color.new(@config.border_color)
 
     @grid.squares.map { |square| square.borders.values }.flatten.each do |l|
+      next if (l.origin.x.zero? && l.end.x.zero?) || (l.origin.y.zero? && l.end.y.zero?)
+
       painter.draw_line(l.origin.x.to_i, l.origin.y.to_i, l.end.x.to_i, l.end.y.to_i)
     end
   end
