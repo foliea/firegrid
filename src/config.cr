@@ -24,7 +24,7 @@ class Config
   end
 
   def font_color
-    @content["colors"].as(Hash)["border"].as(String)
+    @content["colors"].as(Hash)["font"].as(String)
   end
 
   def keybindings

@@ -11,18 +11,9 @@ class Overlay < Qt::Widget
   end
 
   def paint_event(_event)
-    Qt::Painter.draw(self) do |p|
-      p.pen = Qt::Color.new(@config.border_color)
-
-      lines.each do |l|
-        p.draw_line(l.origin.x.to_i, l.origin.y.to_i, l.end.x.to_i, l.end.y.to_i)
-      end
-
-      texts.each_with_index do |t, square_id|
-        p.font.point_size = t.size.to_i
-
-        p.draw_text(Qt::Point.new(t.origin.x, t.origin.y), text_label(square_id))
-      end
+    Qt::Painter.draw(self) do |painter|
+      draw_lines(painter)
+      draw_texts(painter)
     end
   end
 
@@ -36,12 +27,22 @@ class Overlay < Qt::Widget
     repaint
   end
 
-  private def lines
-    @grid.squares.map { |square| square.borders.values }.flatten
+  private def draw_lines(painter)
+    painter.pen = Qt::Color.new(@config.border_color)
+
+    @grid.squares.map { |square| square.borders.values }.flatten.each do |l|
+      painter.draw_line(l.origin.x.to_i, l.origin.y.to_i, l.end.x.to_i, l.end.y.to_i)
+    end
   end
 
-  private def texts
-    @grid.squares.map { |square| square.label }
+  private def draw_texts(painter)
+    painter.pen = Qt::Color.new(@config.font_color)
+
+    @grid.squares.map { |square| square.label }.each_with_index do |text, square_id|
+      painter.font.point_size = text.size.to_i
+
+      painter.draw_text(Qt::Point.new(text.origin.x, text.origin.y), text_label(square_id))
+    end
   end
 
   private def text_label(id)
