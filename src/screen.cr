@@ -12,8 +12,9 @@ class Screen < Qt::DesktopWidget
   end
 
   def capture
-    Process.run("import -window root -display :0 --screen #{BACKGROUND_FILENAME}", shell: true)
-    BACKGROUND_FILENAME.gsub(".", "-#{primary_screen}.")
+    Qt::GuiApplication.primary_screen.grab_window(0_u32).save(BACKGROUND_FILENAME)
+
+    BACKGROUND_FILENAME
   end
 
   def click(position : Position)

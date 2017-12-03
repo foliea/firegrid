@@ -6,7 +6,6 @@ RUN echo '[archlinuxfr]' >> /etc/pacman.conf && \
     pacman -Syu --noconfirm \
         qt5 \
         xdotool \
-        imagemagick \
         wget \
         crystal \
         shards
