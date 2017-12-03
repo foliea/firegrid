@@ -1,5 +1,5 @@
 name: Firegrid
-version: 0.1.1
+version: 0.2.0
 
 authors:
   - Adrien Folie <folie.adrien@gmail.com>
@@ -8,8 +8,8 @@ crystal: 0.23.0
 
 dependencies:
   qt5:
-    github: foliea/qt5.cr
-    branch: patch-1
+    github: Papierkorb/qt5.cr
+    branch: master-ready-to-use
   toml:
     github: manastech/crystal-toml
     branch: master

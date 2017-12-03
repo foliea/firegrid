@@ -5,8 +5,8 @@ shards:
     commit: 8dbedf30efc93d9acc24c54813f4d5fcfbaac7c2
 
   qt5:
-    github: foliea/qt5.cr
-    commit: 5fe50bb66d6fd323f6673596546a181ce2a29375
+    github: Papierkorb/qt5.cr
+    commit: 6b2d1adfd1a571f999af5224fbdc1636b454c27e
 
   toka:
     github: Papierkorb/toka
