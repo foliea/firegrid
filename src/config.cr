@@ -2,17 +2,17 @@ require "toml"
 require "./keybindings"
 
 class Config
-  private ALL_FILENAMES = [
+  private FILENAMES = [
     File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml"),
     File.join(ENV["HOME"], ".firegrid.toml"),
     File.join("/etc", "firegrid", "firegrid.toml"),
   ]
 
   def self.default : self
-    ALL_FILENAMES.each do |filename|
+    FILENAMES.each do |filename|
       return new(File.read(filename), filename) if File.exists?(filename)
     end
-    raise InvalidConfiguration.new("Configuration file not found! (#{ALL_FILENAMES})")
+    raise InvalidConfiguration.new("Configuration file not found! (#{FILENAMES})")
   end
 
   def initialize(body : String, @filename : String)
