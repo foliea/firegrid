@@ -39,7 +39,7 @@ class Overlay < Qt::Widget
     painter.pen = Qt::Color.new(@config.font_color)
 
     @grid.squares.map { |square| square.label }.each_with_index do |text, square_id|
-      painter.font.point_size = text.size.to_i
+      painter.font.point_size = text.size.to_i / @screen.scale_factor
 
       painter.draw_text(Qt::Point.new(text.origin.x, text.origin.y), text_label(square_id))
     end
