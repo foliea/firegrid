@@ -1,8 +1,6 @@
-border-color = [214, 73, 55]
-
-[font]
-file = "/usr/share/fonts/noto/NotoSansMono-Regular.ttf"
-color = [214, 73, 55]
+[colors]
+border = "#d64237"
+font = "#d64937"
 
 [keys]
 squares = [

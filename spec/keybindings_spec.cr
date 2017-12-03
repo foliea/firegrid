@@ -7,7 +7,7 @@ describe "Keybindings" do
   })
 
   describe "#square_key?" do
-    it { keybindings.square_key?("semicolon").should be_true }
+    it { keybindings.square_key?(";").should be_true }
 
     context "when keycode doesn't match any grid square key" do
       it { keybindings.square_key?("alt").should be_false }

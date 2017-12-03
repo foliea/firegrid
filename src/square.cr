@@ -21,14 +21,14 @@ class Square
   def label
     label_size = (@width < @height ? @width : @height) / 2
 
-    label_origin = Position.new(center.x - label_size / 2, center.y - label_size / 2)
+    label_origin = Position.new(center.x - label_size / 2, center.y + label_size / 2)
 
     Label.new(label_origin, label_size)
   end
 
   def borders
-    x = @origin.x.zero? ? 1_u32 : @origin.x
-    y = @origin.y.zero? ? 1_u32 : @origin.y
+    x = @origin.x
+    y = @origin.y
     {
       "top" => Border.new(
         Position.new(x, y), Position.new(x + @width, y)
