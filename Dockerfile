@@ -4,12 +4,10 @@ RUN echo '[archlinuxfr]' >> /etc/pacman.conf && \
     echo 'SigLevel = Never' >> /etc/pacman.conf && \
     echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf && \
     pacman -Syu --noconfirm \
-        yaourt \
-        wget \
-        noto-fonts \
-        libx11 \
+        qt5 \
         xdotool \
         imagemagick \
+        wget \
         crystal \
         shards
 
@@ -23,8 +21,6 @@ RUN wget https://github.com/crystal-lang/crystal/releases/download/$CRYSTAL_VERS
 RUN useradd dev && echo "dev ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/dev
 
 USER dev
-
-RUN yaourt -S --noconfirm voidcsfml
 
 COPY shard.yml $APP/
 COPY shard.lock $APP/
