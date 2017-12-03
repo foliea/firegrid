@@ -1,22 +1,22 @@
 require "qt5"
-require "./screen"
+require "./display"
 require "./overlay"
 
 class Window < Qt::MainWindow
   private TITLE = "Firegrid"
   private STATE = Qt::WindowStates::WindowFullScreen
 
-  def initialize(@screen = Screen.new, @config = Config.default, *args)
+  def initialize(@display = Display.new, @config = Config.default, *args)
     super(*args)
 
-    @overlay = Overlay.new(@screen, @config)
+    @overlay = Overlay.new(@display, @config)
 
     self.window_state = STATE
     self.window_title = TITLE
 
     self.central_widget = @overlay
 
-    self.style_sheet = "background-image: url(#{@screen.capture});"
+    self.style_sheet = "background-image: url(#{@display.capture});"
   end
 
   def key_press_event(event)
@@ -32,6 +32,6 @@ class Window < Qt::MainWindow
   def close_then_click(selection)
     close
 
-    @screen.click(selection)
+    @display.click(selection)
   end
 end

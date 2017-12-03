@@ -1,13 +1,13 @@
 require "qt5"
-require "./screen"
+require "./display"
 require "./config"
 require "./grid"
 
 class Overlay < Qt::Widget
-  def initialize(@screen : Screen, @config : Config, *args)
+  def initialize(@display : Display, @config : Config, *args)
     super(*args)
 
-    @grid = Grid.new(@screen.width, @screen.height)
+    @grid = Grid.new(@display.width, @display.height)
   end
 
   def paint_event(_event)
@@ -20,9 +20,9 @@ class Overlay < Qt::Widget
   def select(square_id)
     square = @grid.squares[square_id]
 
-    return square.center if square.precise_for?(@screen.width, @screen.height)
+    return square.center if square.precise_for?(@display.width, @display.height)
 
-    @grid = square.to_grid.resize_for(@screen.width, @screen.height)
+    @grid = square.to_grid.resize_for(@display.width, @display.height)
 
     repaint
   end
@@ -41,7 +41,7 @@ class Overlay < Qt::Widget
     painter.pen = Qt::Color.new(@config.font_color)
 
     @grid.squares.map { |square| square.label }.each_with_index do |text, square_id|
-      painter.font.point_size = text.size.to_i / @screen.scale_factor
+      painter.font.point_size = text.size.to_i / @display.scale_factor
 
       painter.draw_text(Qt::Point.new(text.origin.x, text.origin.y), text_label(square_id))
     end

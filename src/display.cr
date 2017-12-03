@@ -1,6 +1,6 @@
 require "qt5"
 
-class Screen < Qt::DesktopWidget
+class Display < Qt::DesktopWidget
   private BACKGROUND_FILENAME = "/tmp/firegrid.png"
   private DEFAULT_DPI         = 96
 
