@@ -3,6 +3,10 @@ border = "#d64237"
 font = "#d64937"
 
 [keys]
+#
+# Minimum square keys required: 4, up to whatever you want.
+#
+# More square keys will reduce the number of required key strokes.
 squares = [
   "a",
   "b",
