@@ -7,7 +7,7 @@ class Overlay < Qt::Widget
   def initialize(@display : Display, @config : Config, *args)
     super(*args)
 
-    @grid = Grid.new(@display.width, @display.height, max_size: @config.grid_size)
+    @grid = Grid.new(@display.width, @display.height, max_size: @config.max_grid_size)
   end
 
   def paint_event(_event)

@@ -11,7 +11,7 @@ class Config
   # Try it here: http://rubular.com/r/cPuMa8WlKA
   private HEXADECIMAL_COLOR_REGEXP = /^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/
 
-  private MIN_GRID_SIZE = 4_u32
+  private MIN_GRID_SIZE_TRESHOLD = 4_u32
 
   def self.default : self
     FILENAMES.each do |filename|
@@ -32,7 +32,7 @@ class Config
 
     validate_color!(font_color, key: "font")
 
-    if grid_size < MIN_GRID_SIZE
+    if max_grid_size < MIN_GRID_SIZE_TRESHOLD
       raise InvalidConfiguration.new("Please specify at least 4 square keys in #{@filename}")
     end
   end
@@ -45,7 +45,7 @@ class Config
     @content["colors"].as(Hash)["font"].as(String)
   end
 
-  def grid_size
+  def max_grid_size
     keys["squares"].size.to_u32
   end
 
