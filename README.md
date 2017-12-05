@@ -39,6 +39,8 @@ You can install it using `makepkg` like this:
 
 Or you could use an AUR helper:
 
+e.g: With [yaourt](https://archlinux.fr/yaourt-en)
+
     $ yaourt -S firegrid
 
 ### Build from sources
@@ -75,6 +77,7 @@ the following command: `xhost +` before running the script.
 
 Inside the container you can:
 * Build the binary with: `make`
+* Install crystal shards: `make dependencies`
 * Compile and run the application with: `make dev`
 * Launch the test suite with: `make test`
 

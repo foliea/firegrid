@@ -1,21 +1,19 @@
 FROM base/devel:latest
 
-RUN echo '[archlinuxfr]' >> /etc/pacman.conf && \
-    echo 'SigLevel = Never' >> /etc/pacman.conf && \
-    echo 'Server = http://repo.archlinux.fr/$arch' >> /etc/pacman.conf && \
-    pacman -Syu --noconfirm \
+RUN pacman -Syu --noconfirm \
         qt5-base \
+        ttf-dejavu \
         xdotool \
         wget \
         crystal \
         shards
 
-ENV CRYSTAL_VERSION=0.23.1 APP=/firegrid PATH="/crystal/bin:$PATH"
+ENV APP=/firegrid PATH="/crystal/bin:$PATH" XDG_RUNTIME_DIR=/tmp/runtime-dev
 
-RUN wget https://github.com/crystal-lang/crystal/releases/download/$CRYSTAL_VERSION/crystal-$CRYSTAL_VERSION-3-linux-x86_64.tar.gz && \
-    tar -xzvf crystal-$CRYSTAL_VERSION-3-linux-x86_64.tar.gz && \
-    mv crystal-$CRYSTAL_VERSION-3 /crystal && \
-    rm crystal-$CRYSTAL_VERSION-3-linux-x86_64.tar.gz
+RUN wget https://github.com/crystal-lang/crystal/releases/download/0.23.0/crystal-0.23.0-1-linux-x86_64.tar.gz && \
+    tar -xzvf crystal-0.23.0-1-linux-x86_64.tar.gz && \
+    mv crystal-0.23.0-1 /crystal && \
+    rm crystal-0.23.0-1-linux-x86_64.tar.gz
 
 COPY shard.yml $APP/
 COPY shard.lock $APP/
@@ -25,11 +23,12 @@ RUN cd $APP && crystal deps install
 COPY . $APP
 
 RUN useradd --create-home --home-dir $HOME/dev dev && \
+    mkdir $XDG_RUNTIME_DIR && \
     chown -R dev:dev $HOME && \
-    chown -R dev:dev $APP
+    chown -R dev:dev $APP && \
+    chown -R dev:dev $XDG_RUNTIME_DIR && \
+    ln -s $APP/config/firegrid.toml $HOME/dev/.firegrid.toml
 
 USER dev
-
-RUN ln -s $APP/config/firegrid.toml $HOME/.firegrid.toml
 
 WORKDIR $APP
