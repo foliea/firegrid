@@ -13,18 +13,16 @@ class Window < Qt::MainWindow
 
     self.window_state = STATE
     self.window_title = TITLE
-
     self.central_widget = @overlay
-
+    self.fixed_width = @display.width.to_i
+    self.fixed_height = @display.height.to_i
     self.style_sheet = "background-image: url(#{@display.capture});"
   end
 
   def key_press_event(event)
-    return close unless @config.keybindings.square_key?(event.text)
+    return close if @config.keybindings.close_key?(event.text)
 
-    target_id = @config.keybindings.square_id(event.text)
-
-    selection = @overlay.select(target_id)
+    selection = attempt_selection(event.text)
 
     close_then_click(selection) if selection
   end
@@ -33,5 +31,21 @@ class Window < Qt::MainWindow
     close
 
     @display.click(selection)
+  end
+
+  def resize_event(_event)
+    show_full_screen
+  end
+
+  def leave_event(_event)
+    close
+  end
+
+  private def attempt_selection(key)
+    return unless @config.keybindings.square_key?(key)
+
+    target_id = @config.keybindings.square_id(key)
+
+    @overlay.select(target_id)
   end
 end

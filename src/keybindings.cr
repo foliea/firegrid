@@ -1,7 +1,13 @@
 require "./errors"
 
 class Keybindings
+  private ESCAPE_KEY = "\e"
+
   def initialize(@keys : Hash(String, Array(String))); end
+
+  def close_key?(key)
+    key == ESCAPE_KEY
+  end
 
   def square_key?(key)
     @keys["squares"].includes?(key)
