@@ -3,8 +3,16 @@ require "../src/keybindings"
 
 describe "Keybindings" do
   keybindings = Keybindings.new({
-    "squares" => ["a", ";"],
+    "exit" => "Escape", "squares" => ["a", ";"],
   })
+
+  describe "#exit_key?" do
+    it { keybindings.exit_key?("\e").should be_true }
+
+    context "when keycode doesn't match the exit keycode" do
+      it { keybindings.exit_key?("e").should be_false }
+    end
+  end
 
   describe "#square_key?" do
     it { keybindings.square_key?(";").should be_true }

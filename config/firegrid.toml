@@ -4,9 +4,16 @@ font = "#d64937"
 
 [keys]
 #
+# Key to exit the application:
+#
+# default: Escape
+exit = "Escape"
+#
 # Minimum square keys required: 4, up to whatever you want.
 #
 # More square keys will reduce the number of required key strokes.
+#
+# N.b: duplicates are not allowed.
 squares = [
   "a",
   "b",

@@ -1,12 +1,15 @@
 require "./errors"
 
 class Keybindings
-  private ESCAPE_KEY = "\e"
+  private HUMAN_READABLE_KEYS = {
+    "Escape" => "\e",
+    "Tab" => "\t"
+  }
 
-  def initialize(@keys : Hash(String, Array(String))); end
+  def initialize(@keys : Hash(String, Array(String) | String)); end
 
-  def close_key?(key)
-    key == ESCAPE_KEY
+  def exit_key?(key)
+    convert_key(@keys["exit"]) == key
   end
 
   def square_key?(key)
@@ -22,6 +25,10 @@ class Keybindings
   def square_key(id)
     raise NoMatchingKey.new unless (0..@keys["squares"].size).includes?(id)
 
-    @keys["squares"][id]
+    convert_key(@keys["squares"][id].as(String))
+  end
+
+  private def convert_key(key)
+    HUMAN_READABLE_KEYS.has_key?(key) ? HUMAN_READABLE_KEYS[key] : key
   end
 end

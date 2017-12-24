@@ -46,11 +46,11 @@ class Config
   end
 
   def max_grid_size
-    keys["squares"].size.to_u32
+    square_keys.size.to_u32
   end
 
   def keybindings
-    @_keybindings ||= Keybindings.new(keys)
+    @_keybindings ||= Keybindings.new({"exit" => exit_key, "squares" => square_keys})
   end
 
   private def validate_color!(value, key)
@@ -59,11 +59,15 @@ class Config
     raise InvalidConfiguration.new(msg) unless HEXADECIMAL_COLOR_REGEXP.match(value)
   end
 
-  private def keys
-    {"squares" => square_keys}
+  private def exit_key
+    keys["exit"].as(String)
   end
 
   private def square_keys
-    @content["keys"].as(Hash)["squares"].as(Array(TOML::Type)).map { |key| key.to_s }
+    keys["squares"].as(Array(TOML::Type)).map { |key| key.to_s }
+  end
+
+  private def keys
+    @content["keys"].as(Hash)
   end
 end

@@ -20,7 +20,7 @@ class Window < Qt::MainWindow
   end
 
   def key_press_event(event)
-    return close if @config.keybindings.close_key?(event.text)
+    return close if @config.keybindings.exit_key?(event.text)
 
     selection = attempt_selection(event.text)
 
