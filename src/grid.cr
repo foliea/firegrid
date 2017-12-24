@@ -21,6 +21,10 @@ class Grid
     self.class.new(@width, @height, @origin, RESIZED_MAX_TOTAL_SQUARE_COUNT)
   end
 
+  def selectable?(square_id)
+    square_id < squares.size
+  end
+
   def squares
     horizontal_count, vertical_count = format
 

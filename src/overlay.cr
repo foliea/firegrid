@@ -18,6 +18,8 @@ class Overlay < Qt::Widget
   end
 
   def select(square_id)
+    return unless @grid.selectable?(square_id)
+
     square = @grid.squares[square_id]
 
     return square.center if square.precise_for?(@display.width, @display.height)
