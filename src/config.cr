@@ -13,14 +13,21 @@ class Config
 
   private MIN_GRID_SIZE_TRESHOLD = 4_u32
 
-  def self.default : self
+  macro generate_default
+    private DEFAULT_BODY = File.read(File.join(ENV["PWD"], "config/firegrid.toml"))
+  end
+
+  # Load default configuration file content at compile time, as this file won't be available
+  # at run time.
+  generate_default
+
+  def self.load : self
     FILENAMES.each do |filename|
       next unless File.exists?(filename)
 
       return new(File.read(filename), filename).tap { |config| config.validate! }
     end
-
-    raise InvalidConfiguration.new("Configuration file not found! (#{FILENAMES})")
+    new(DEFAULT_BODY, filename: "")
   end
 
   def initialize(body : String, @filename : String)

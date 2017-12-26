@@ -6,7 +6,7 @@ class Window < Qt::MainWindow
   private TITLE = "Firegrid"
   private STATE = Qt::WindowStates::WindowFullScreen
 
-  def initialize(@display = Display.new, @config = Config.default, *args)
+  def initialize(@display = Display.new, @config = Config.load, *args)
     super(*args)
 
     @overlay = Overlay.new(@display, @config)
