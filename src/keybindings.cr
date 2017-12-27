@@ -3,7 +3,7 @@ require "./errors"
 class Keybindings
   private HUMAN_READABLE_KEYS = {
     "Escape" => "\e",
-    "Tab" => "\t"
+    "Tab"    => "\t",
   }
 
   def initialize(@keys : Hash(String, Array(String) | String)); end

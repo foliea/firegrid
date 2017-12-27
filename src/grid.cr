@@ -10,10 +10,11 @@ class Grid
   getter :width, :height, :origin, :max_size
 
   def initialize(
-                 @width : UInt32,
-                 @height : UInt32,
-                 @origin = Position.default,
-                 @max_size = MAX_TOTAL_SQUARE_COUNT); end
+    @width : UInt32,
+    @height : UInt32,
+    @origin = Position.default,
+    @max_size = MAX_TOTAL_SQUARE_COUNT
+  ); end
 
   def resize_for(width : UInt32, height : UInt32)
     return self unless resize_for?(width, height)

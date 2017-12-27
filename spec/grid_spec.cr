@@ -17,7 +17,7 @@ describe "Grid" do
   describe "#selectable?" do
     grid = Grid.new(5_u32, 5_u32, max_size: 10_u32)
 
-    it { grid.selectable?(8).should be_false }
+    it { grid.selectable?(8).should be_true }
 
     context "when square id doesn't match an existing square" do
       it { grid.selectable?(9).should be_false }
