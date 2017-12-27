@@ -1,3 +1,7 @@
 require "./firegrid/*"
 
-Firegrid::Application.launch
+if ARGV.any?
+  Firegrid::Cli.exec(ARGV)
+else
+  Firegrid::Application.launch
+end
