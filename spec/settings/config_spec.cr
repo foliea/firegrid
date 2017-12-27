@@ -1,7 +1,6 @@
-require "./spec_helper"
-require "../src/config"
+require "../spec_helper"
 
-describe "Config" do
+describe Config do
   valid_body = %(
     [colors]
     border = "#000000"

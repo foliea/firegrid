@@ -1,6 +1,4 @@
-require "./errors"
-
-class Keybindings
+class Firegrid::Settings::Keybindings
   private HUMAN_READABLE_KEYS = {
     "Escape" => "\e",
     "Tab"    => "\t",

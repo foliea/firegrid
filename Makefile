@@ -1,6 +1,6 @@
 .PHONY: all re clean dependencies install test dev
 
-MAIN := $(PWD)/src/application.cr
+MAIN := $(PWD)/src/firegrid.cr
 
 BINARY := bin/firegrid
 

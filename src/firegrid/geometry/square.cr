@@ -1,9 +1,8 @@
-require "./grid"
 require "./border"
-require "./position"
+require "./grid"
 require "./label"
 
-class Square
+class Firegrid::Geometry::Square
   private PRECISON_RATE = 2_u32
 
   getter :width, :height, :origin

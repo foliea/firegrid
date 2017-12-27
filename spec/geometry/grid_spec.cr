@@ -1,5 +1,4 @@
-require "./spec_helper"
-require "../src/grid"
+require "../spec_helper"
 
 describe "Grid" do
   it "has given origin" do

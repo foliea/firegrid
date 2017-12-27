@@ -1,7 +1,8 @@
 require "toml"
 require "./keybindings"
+require "./errors"
 
-class Config
+class Firegrid::Settings::Config
   private FILENAMES = [
     File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml"),
     File.join(ENV["HOME"], ".firegrid.toml"),

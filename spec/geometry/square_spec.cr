@@ -1,5 +1,4 @@
-require "spec"
-require "../src/square"
+require "../spec_helper"
 
 describe "Square" do
   it "has given origin" do

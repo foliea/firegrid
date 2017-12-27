@@ -1,7 +1,6 @@
-require "./position"
 require "./square"
 
-class Grid
+class Firegrid::Geometry::Grid
   private MIN_VERTICAL_SQUARE_COUNT      =  1_u32
   private MAX_TOTAL_SQUARE_COUNT         = 40_u32
   private RESIZED_MAX_TOTAL_SQUARE_COUNT =  4_u32

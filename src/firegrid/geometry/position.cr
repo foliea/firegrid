@@ -1,4 +1,4 @@
-class Position
+class Firegrid::Geometry::Position
   getter :x, :y
 
   def self.default : self

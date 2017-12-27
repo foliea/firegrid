@@ -1,5 +1,4 @@
-require "./spec_helper"
-require "../src/position"
+require "../spec_helper"
 
 describe "Position" do
   describe ".default" do

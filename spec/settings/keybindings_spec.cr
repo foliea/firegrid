@@ -1,5 +1,4 @@
-require "./spec_helper"
-require "../src/keybindings"
+require "../spec_helper"
 
 describe "Keybindings" do
   keybindings = Keybindings.new({

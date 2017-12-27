@@ -1,12 +1,11 @@
 require "qt5"
-require "./display"
-require "./overlay"
+require "./settings/config"
 
-class Window < Qt::MainWindow
+class Firegrid::Window < Qt::MainWindow
   private TITLE = "Firegrid"
   private STATE = Qt::WindowStates::WindowFullScreen
 
-  def initialize(@display = Display.new, @config = Config.load, *args)
+  def initialize(@display = Display.new, @config = Settings::Config.load, *args)
     super(*args)
 
     @overlay = Overlay.new(@display, @config)

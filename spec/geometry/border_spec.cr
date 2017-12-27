@@ -1,5 +1,4 @@
-require "./spec_helper"
-require "../src/border"
+require "../spec_helper"
 
 describe "Border" do
   describe "==" do

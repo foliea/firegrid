@@ -1,6 +1,6 @@
 require "./position"
 
-class Border
+class Firegrid::Geometry::Border
   getter :origin, :end
 
   def initialize(@origin : Position, @end : Position); end

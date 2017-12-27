@@ -1,6 +1,6 @@
 require "./position"
 
-class Label
+class Firegrid::Geometry::Label
   getter :origin, :size
 
   def initialize(@origin : Position, @size : UInt32); end

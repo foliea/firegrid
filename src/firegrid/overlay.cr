@@ -1,13 +1,14 @@
 require "qt5"
-require "./display"
-require "./config"
-require "./grid"
+require "./settings/config"
+require "./geometry/grid"
 
-class Overlay < Qt::Widget
-  def initialize(@display : Display, @config : Config, *args)
+class Firegrid::Overlay < Qt::Widget
+  def initialize(@display : Display, @config : Settings::Config, *args)
     super(*args)
 
-    @grid = Grid.new(@display.width, @display.height, max_size: @config.max_grid_size)
+    @grid = Geometry::Grid.new(
+      @display.width, @display.height, max_size: @config.max_grid_size
+    )
   end
 
   def paint_event(_event)

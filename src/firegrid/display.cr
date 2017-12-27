@@ -1,6 +1,7 @@
 require "qt5"
+require "./geometry/position"
 
-class Display < Qt::DesktopWidget
+class Firegrid::Display < Qt::DesktopWidget
   private BACKGROUND_FILENAME = "/tmp/firegrid.png"
   private DEFAULT_DPI         = 96
 
@@ -22,7 +23,7 @@ class Display < Qt::DesktopWidget
     BACKGROUND_FILENAME
   end
 
-  def click(position : Position)
+  def click(position : Geometry::Position)
     Process.run("xdotool mousemove #{position.x} #{position.y} click 1", shell: true)
   end
 

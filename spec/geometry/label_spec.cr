@@ -1,5 +1,4 @@
-require "./spec_helper"
-require "../src/label"
+require "../spec_helper"
 
 describe "Label" do
   describe "==" do
