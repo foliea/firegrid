@@ -2,17 +2,17 @@ version: 1.0
 shards:
   bindgen:
     github: Papierkorb/bindgen
-    commit: 8dbedf30efc93d9acc24c54813f4d5fcfbaac7c2
+    commit: 150396158bd9a3632a644b037ea7389e4d25449a
 
   qt5:
     github: Papierkorb/qt5.cr
-    commit: 6b2d1adfd1a571f999af5224fbdc1636b454c27e
+    commit: e9a0e8c129d72b5a1d4aca43113513606d6c61f4
 
   toka:
     github: Papierkorb/toka
-    version: 0.1.1
+    version: 0.1.2
 
   toml:
-    github: manastech/crystal-toml
-    commit: 763da4033745ab7b39e7a0fe4a4b23f6dc8b7cc6
+    github: foliea/crystal-toml
+    commit: 63402133b1609741494ca90949c759452d9aa610
 
