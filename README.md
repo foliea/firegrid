@@ -55,9 +55,9 @@ You will then find the firegrid binary in the `bin` directory:
 
 ## Configuration
 
-Firegrid configuration file resides either in `$HOME/.config/firegrid/firegrid.toml` or `$HOME/.firegrid.toml`.
+Firegrid configuration file resides in `$HOME/.config/firegrid/firegrid.toml`.
 
-A sample of the configuration file is available [here](/config/firegrid.toml).
+A configuration file sample is available [here](/config/firegrid.toml).
 
 This file must follow the [TOML](https://github.com/toml-lang/toml) specification.
 

@@ -11,19 +11,17 @@ describe Config do
     squares = ["a", "b", "c", "d"]
   )
 
-  filename = "firegrid.toml"
-
   describe "#validate!" do
     context "with valid body" do
       it "doesn't raise any exception" do
-        Config.new(valid_body, filename).validate!
+        Config.new(valid_body).validate!
       end
     end
 
     context "when border color is not a valid hexadecimal color" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
-          Config.new(valid_body.gsub("#000000", "000000"), filename).validate!
+          Config.new(valid_body.gsub("#000000", "000000")).validate!
         end
       end
     end
@@ -31,7 +29,7 @@ describe Config do
     context "when font color is not a valid hexadecimal color" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
-          Config.new(valid_body.gsub("#ffffff", "#fffff-"), filename).validate!
+          Config.new(valid_body.gsub("#ffffff", "#fffff-")).validate!
         end
       end
     end
@@ -39,7 +37,7 @@ describe Config do
     context "when there is duplicate keys" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
-          Config.new(valid_body.gsub("Escape", "a"), filename).validate!
+          Config.new(valid_body.gsub("Escape", "a")).validate!
         end
       end
     end
@@ -47,7 +45,7 @@ describe Config do
     context "when square keys count is below the minimum grid size" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
-          Config.new(valid_body.gsub(%(["a", "b", "c", "d"]), "[]"), filename).validate!
+          Config.new(valid_body.gsub(%(["a", "b", "c", "d"]), "[]")).validate!
         end
       end
     end
@@ -55,19 +53,19 @@ describe Config do
 
   describe "#border_color" do
     it "returns border color value from given body" do
-      Config.new(valid_body, filename).border_color.should eq("#000000")
+      Config.new(valid_body).border_color.should eq("#000000")
     end
   end
 
   describe "#font_color" do
     it "returns font color value from given body" do
-      Config.new(valid_body, filename).font_color.should eq("#ffffff")
+      Config.new(valid_body).font_color.should eq("#ffffff")
     end
   end
 
   describe "#max_grid_size" do
     it "equals square keys count from given body" do
-      Config.new(valid_body, filename).max_grid_size.should eq(4_u32)
+      Config.new(valid_body).max_grid_size.should eq(4_u32)
     end
   end
 end
