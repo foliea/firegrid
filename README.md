@@ -19,9 +19,7 @@ according to the screen ratio, which means that two screens with the same ratio 
 grid (e.g a 1080p and a 4k screen) and the same number of required key strokes.
 
 ### Supported platforms
-Firegrid only works in Linux in X11. Firegrid is written with [Qt 5](https://www.qt.io/) so it should not
-be hard to port it in Wayland or even in MacOS / Windows. The only os specific dependency is
-[xdotool](http://www.semicomplete.com/projects/xdotool/).
+Firegrid only works on Linux in X11. Firegrid is written with [Qt 5](https://www.qt.io/) so it should not be hard to port it in Wayland or even over MacOS / Windows.
 
 ## Installation
 
