@@ -1,3 +1,5 @@
+require "yaml"
+
 module Firegrid
-  VERSION = "0.2.2"
+  VERSION = YAML.parse({{ system("cat", "shard.yml").stringify }})["version"]
 end
