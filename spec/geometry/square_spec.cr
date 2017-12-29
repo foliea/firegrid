@@ -13,11 +13,11 @@ describe "Square" do
     it { square.precise_for?(20_u32, 20_u32).should be_false }
 
     context "when square width is below precision rate of given width" do
-      it { square.precise_for?(500_u32, 20_u32).should be_true }
+      it { square.precise_for?(1000_u32, 20_u32).should be_true }
     end
 
     context "when square height is below precision rate of given height" do
-      it { square.precise_for?(20_u32, 500_u32).should be_true }
+      it { square.precise_for?(20_u32, 1000_u32).should be_true }
     end
   end
 
