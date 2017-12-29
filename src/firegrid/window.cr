@@ -33,6 +33,10 @@ class Firegrid::Window < Qt::MainWindow
   end
 
   def resize_event(_event)
+    move(@display.position.x.to_i, @display.position.y.to_i)
+
+    resize(@display.width.to_i, @display.height.to_i)
+
     show_full_screen
   end
 
