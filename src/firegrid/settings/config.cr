@@ -42,9 +42,7 @@ class Firegrid::Settings::Config
 
     validate_color!(font_color, key: "font")
 
-    if max_grid_size < MIN_GRID_SIZE_TRESHOLD
-      raise InvalidConfiguration.new("Please specify at least 4 square keys in #{@filename}")
-    end
+    validate_keys!
   end
 
   def border_color
@@ -67,6 +65,18 @@ class Firegrid::Settings::Config
     msg = "#{key.capitalize} color must be a valid hexadecimal color in #{@filename}"
 
     raise InvalidConfiguration.new(msg) unless HEXADECIMAL_COLOR_REGEXP.match(value)
+  end
+
+  private def validate_keys!
+    if max_grid_size < MIN_GRID_SIZE_TRESHOLD
+      raise InvalidConfiguration.new("Please specify at least 4 square keys in #{@filename}")
+    end
+
+    all_keys = square_keys.concat([exit_key])
+
+    if all_keys != all_keys.uniq
+      raise InvalidConfiguration.new("Please remove duplicate keys in #{@filename}")
+    end
   end
 
   private def exit_key

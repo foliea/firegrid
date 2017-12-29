@@ -7,6 +7,7 @@ describe Config do
     font = "#ffffff"
 
     [keys]
+    exit = "Escape"
     squares = ["a", "b", "c", "d"]
   )
 
@@ -35,6 +36,15 @@ describe Config do
       end
     end
 
+    context "when there is duplicate keys" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new(valid_body.gsub("Escape", "a"), filename).validate!
+        end
+      end
+
+    end
+
     context "when square keys count is below the minimum grid size" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
@@ -42,6 +52,7 @@ describe Config do
         end
       end
     end
+
   end
 
   describe "#border_color" do
