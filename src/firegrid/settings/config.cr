@@ -15,12 +15,16 @@ class Firegrid::Settings::Config
   private MIN_GRID_SIZE_TRESHOLD = 4_u32
 
   def self.load : self
-    return new(DEFAULT_BODY) unless File.exists?(FILENAME)
-
     new(File.read(FILENAME)).tap { |config| config.validate! }
+  rescue e : InvalidConfiguration
+    puts "#{FILENAME}: #{e.message}"
+
+    new
+  rescue Errno
+    new
   end
 
-  def initialize(body : String)
+  def initialize(body = DEFAULT_BODY)
     @content = TOML.parse(body)
   end
 
@@ -49,20 +53,20 @@ class Firegrid::Settings::Config
   end
 
   private def validate_color!(value, key)
-    msg = "#{key.capitalize} color must be a valid hexadecimal color in #{FILENAME}"
+    msg = "#{key.capitalize} color must be a valid hexadecimal color"
 
     raise InvalidConfiguration.new(msg) unless HEXADECIMAL_COLOR_REGEXP.match(value)
   end
 
   private def validate_keys!
     if max_grid_size < MIN_GRID_SIZE_TRESHOLD
-      raise InvalidConfiguration.new("Please specify at least 4 square keys in #{FILENAME}")
+      raise InvalidConfiguration.new("Please specify at least 4 square keys")
     end
 
     all_keys = square_keys.concat([exit_key])
 
     if all_keys != all_keys.uniq
-      raise InvalidConfiguration.new("Please remove duplicate keys in #{FILENAME}")
+      raise InvalidConfiguration.new("Please remove duplicate keys")
     end
   end
 
