@@ -26,8 +26,7 @@ RUN useradd --create-home --home-dir $HOME/dev dev && \
     mkdir $XDG_RUNTIME_DIR && \
     chown -R dev:dev $HOME && \
     chown -R dev:dev $APP && \
-    chown -R dev:dev $XDG_RUNTIME_DIR && \
-    ln -s $APP/config/firegrid.toml $HOME/dev/.firegrid.toml
+    chown -R dev:dev $XDG_RUNTIME_DIR
 
 USER dev
 

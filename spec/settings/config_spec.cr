@@ -42,7 +42,6 @@ describe Config do
           Config.new(valid_body.gsub("Escape", "a"), filename).validate!
         end
       end
-
     end
 
     context "when square keys count is below the minimum grid size" do
@@ -52,7 +51,6 @@ describe Config do
         end
       end
     end
-
   end
 
   describe "#border_color" do

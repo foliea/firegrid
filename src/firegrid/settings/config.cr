@@ -9,20 +9,14 @@ class Firegrid::Settings::Config
     File.join("/etc", "firegrid", "firegrid.toml"),
   ]
 
+  # Load default configuration file content at compile time, as this file won't be available
+  # at run time.
+  private DEFAULT_BODY = {{ system("cat", "config/firegrid.toml").stringify }}
+
   # Try it here: http://rubular.com/r/cPuMa8WlKA
   private HEXADECIMAL_COLOR_REGEXP = /^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/
 
   private MIN_GRID_SIZE_TRESHOLD = 4_u32
-
-  # Load default configuration file content at compile time, as this file won't be available
-  # at run time.
-  macro generate_default(body = File.read(File.join(ENV["PWD"], "config", "firegrid.toml")))
-    private def self.default
-      new({{body}}, filename: "")
-    end
-  end
-
-  generate_default
 
   def self.load : self
     FILENAMES.each do |filename|
@@ -30,7 +24,7 @@ class Firegrid::Settings::Config
 
       return new(File.read(filename), filename).tap { |config| config.validate! }
     end
-    default
+    new(DEFAULT_BODY, filename: "")
   end
 
   def initialize(body : String, @filename : String)
