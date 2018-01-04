@@ -1,11 +1,11 @@
 require "./position"
 
 class Firegrid::Geometry::Border
-  getter :origin, :end
+  getter origin : Position, limit : Position
 
-  def initialize(@origin : Position, @end : Position); end
+  def initialize(@origin : Position, @limit : Position); end
 
-  def ==(border : self)
-    @origin == border.origin && @end == border.end
+  def ==(border : self) : Bool
+    @origin == border.origin && @limit == border.limit
   end
 end

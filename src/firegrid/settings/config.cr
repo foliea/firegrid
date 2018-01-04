@@ -26,18 +26,18 @@ class Firegrid::Settings::Config
     @content = parse.as(Hash(String, TOML::Type))
   end
 
-  def colors
+  def colors : Hash(String, String)
     {
       "border" => extract_value("colors", "border").as(String),
       "font"   => extract_value("colors", "font").as(String),
     }
   end
 
-  def max_grid_size
+  def max_grid_size : UInt32
     square_keys.size.to_u32
   end
 
-  def keybindings
+  def keybindings : Keybindings
     @_keybindings ||= Keybindings.new({"exit" => exit_key, "squares" => square_keys})
   end
 
@@ -55,7 +55,7 @@ class Firegrid::Settings::Config
     {} of String => TOML::Type
   end
 
-  private def extract_value(section, key)
+  private def extract_value(section : String, key : String)
     values = @content[section].as(Hash(String, TOML::Type))
 
     values.has_key?(key) ? values[key] : nil

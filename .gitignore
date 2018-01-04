@@ -1,6 +1,7 @@
 /bin/*
 !/bin/.gitkeep
 /doc/
+/docs/
 /lib/
 /vendor/
 /.shards/

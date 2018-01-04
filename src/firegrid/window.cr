@@ -26,7 +26,7 @@ class Firegrid::Window < Qt::MainWindow
     close_then_click(selection) if selection
   end
 
-  def close_then_click(selection)
+  def close_then_click(selection : Geometry::Position)
     close
 
     @display.click(selection)
@@ -44,7 +44,7 @@ class Firegrid::Window < Qt::MainWindow
     close
   end
 
-  private def attempt_selection(key)
+  private def attempt_selection(key : String)
     return unless @config.keybindings.square_key?(key)
 
     target_id = @config.keybindings.square_id(key)

@@ -18,7 +18,7 @@ class Firegrid::Overlay < Qt::Widget
     end
   end
 
-  def select(square_id)
+  def select(square_id : Int32)
     return unless @grid.selectable?(square_id)
 
     square = @grid.squares[square_id]
@@ -30,17 +30,17 @@ class Firegrid::Overlay < Qt::Widget
     repaint
   end
 
-  private def draw_lines(painter)
+  private def draw_lines(painter : Qt::Painter)
     painter.pen = Qt::Color.new(@config.colors["border"])
 
     @grid.squares.map { |square| square.borders.values }.flatten.each do |l|
-      next if (l.origin.x.zero? && l.end.x.zero?) || (l.origin.y.zero? && l.end.y.zero?)
+      next if (l.origin.x.zero? && l.limit.x.zero?) || (l.origin.y.zero? && l.limit.y.zero?)
 
-      painter.draw_line(l.origin.x.to_i, l.origin.y.to_i, l.end.x.to_i, l.end.y.to_i)
+      painter.draw_line(l.origin.x.to_i, l.origin.y.to_i, l.limit.x.to_i, l.limit.y.to_i)
     end
   end
 
-  private def draw_texts(painter)
+  private def draw_texts(painter : Qt::Painter)
     painter.pen = Qt::Color.new(@config.colors["font"])
 
     @grid.squares.map { |square| square.label }.each_with_index do |text, square_id|
@@ -50,7 +50,7 @@ class Firegrid::Overlay < Qt::Widget
     end
   end
 
-  private def text_label(id)
+  private def text_label(id : Int32)
     @config.keybindings.square_key(id)
   end
 end

@@ -6,7 +6,7 @@ class Firegrid::Geometry::Grid
   private RESIZED_MAX_TOTAL_SQUARE_COUNT =  4_u32
   private RESIZE_REQUIRED_RATE           =  5_u32
 
-  getter :width, :height, :origin, :max_size
+  getter width : UInt32, height : UInt32, origin : Position, max_size : UInt32
 
   def initialize(
     @width : UInt32,
@@ -15,17 +15,17 @@ class Firegrid::Geometry::Grid
     @max_size = MAX_TOTAL_SQUARE_COUNT
   ); end
 
-  def resize_for(width : UInt32, height : UInt32)
+  def resize_for(width : UInt32, height : UInt32) : Grid
     return self unless resize_for?(width, height)
 
     self.class.new(@width, @height, @origin, RESIZED_MAX_TOTAL_SQUARE_COUNT)
   end
 
-  def selectable?(square_id)
+  def selectable?(square_id : Int32) : Bool
     square_id < squares.size
   end
 
-  def squares
+  def squares : Array(Square)
     horizontal_count, vertical_count = format
 
     size = horizontal_count * vertical_count
@@ -43,7 +43,7 @@ class Firegrid::Geometry::Grid
     end
   end
 
-  def ==(grid : self)
+  def ==(grid : self) : Bool
     @width == grid.width && @height == grid.height && @origin == grid.origin
   end
 

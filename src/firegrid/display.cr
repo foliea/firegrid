@@ -13,23 +13,23 @@ class Firegrid::Display < Qt::DesktopWidget
     @mouse_location = fetch_mouse_location
   end
 
-  def scale_factor
+  def scale_factor : Int32
     current_screen.logical_dots_per_inch.to_i / DEFAULT_DPI
   end
 
-  def position
+  def position : Geometry::Position
     Geometry::Position.new(geometry.x.to_u32, geometry.y.to_u32)
   end
 
-  def width
+  def width : UInt32
     geometry.width.to_u32
   end
 
-  def height
+  def height : UInt32
     geometry.height.to_u32
   end
 
-  def capture
+  def capture : String
     current_screen.grab_window(current_screen_number.to_u32).save(BACKGROUND_FILENAME)
 
     BACKGROUND_FILENAME
