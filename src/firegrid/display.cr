@@ -17,7 +17,7 @@ class Firegrid::Display < Qt::DesktopWidget
     current_screen.logical_dots_per_inch.to_i / DEFAULT_DPI
   end
 
-  def position : Geometry::Position
+  def origin : Geometry::Position
     Geometry::Position.new(geometry.x.to_u32, geometry.y.to_u32)
   end
 
