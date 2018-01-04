@@ -31,7 +31,7 @@ class Firegrid::Overlay < Qt::Widget
   end
 
   private def draw_lines(painter)
-    painter.pen = Qt::Color.new(@config.border_color)
+    painter.pen = Qt::Color.new(@config.colors["border"])
 
     @grid.squares.map { |square| square.borders.values }.flatten.each do |l|
       next if (l.origin.x.zero? && l.end.x.zero?) || (l.origin.y.zero? && l.end.y.zero?)
@@ -41,7 +41,7 @@ class Firegrid::Overlay < Qt::Widget
   end
 
   private def draw_texts(painter)
-    painter.pen = Qt::Color.new(@config.font_color)
+    painter.pen = Qt::Color.new(@config.colors["font"])
 
     @grid.squares.map { |square| square.label }.each_with_index do |text, square_id|
       painter.font.point_size = text.size.to_i / @display.scale_factor

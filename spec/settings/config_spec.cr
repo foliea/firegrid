@@ -18,6 +18,30 @@ describe Config do
       end
     end
 
+    context "when body is not toml compliant" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new("azerty").validate!
+        end
+      end
+    end
+
+    context "when border color is missing" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new(valid_body.gsub("border = \"#000000\"", "")).validate!
+        end
+      end
+    end
+
+    context "when border color is not a string" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new(valid_body.gsub("\"#000000\"", "0")).validate!
+        end
+      end
+    end
+
     context "when border color is not a valid hexadecimal color" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
@@ -26,10 +50,52 @@ describe Config do
       end
     end
 
+    context "when font color is missing" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new(valid_body.gsub("font = \"#ffffff\"", "")).validate!
+        end
+      end
+    end
+
+    context "when font color is not a string" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new(valid_body.gsub("\"#ffffff\"", "0")).validate!
+        end
+      end
+    end
+
     context "when font color is not a valid hexadecimal color" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
           Config.new(valid_body.gsub("#ffffff", "#fffff-")).validate!
+        end
+      end
+    end
+
+    context "when exit key is missing" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new(valid_body.gsub("exit = \"Escape\"", "")).validate!
+        end
+      end
+    end
+
+    context "when exit key is not a string" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new(valid_body.gsub("\"Escape\"", "0")).validate!
+        end
+      end
+    end
+
+    context "when square keys are missing" do
+      it "raise an error" do
+        expect_raises(InvalidConfiguration) do
+          Config.new(
+            valid_body.gsub("squares = [\"a\", \"b\", \"c\", \"d\"]", "")
+          ).validate!
         end
       end
     end
@@ -51,15 +117,12 @@ describe Config do
     end
   end
 
-  describe "#border_color" do
-    it "returns border color value from given body" do
-      Config.new(valid_body).border_color.should eq("#000000")
-    end
-  end
-
-  describe "#font_color" do
-    it "returns font color value from given body" do
-      Config.new(valid_body).font_color.should eq("#ffffff")
+  describe "#colors" do
+    it "returns colors from given body" do
+      Config.new(valid_body).colors.should eq({
+        "border" => "#000000",
+        "font"   => "#ffffff",
+      })
     end
   end
 

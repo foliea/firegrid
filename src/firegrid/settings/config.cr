@@ -1,18 +1,16 @@
 require "toml"
 require "./keybindings"
+require "./validations"
 require "./errors"
 
 class Firegrid::Settings::Config
+  include Validations
+
   private FILENAME = File.join(ENV["HOME"], ".config", "firegrid", "firegrid.toml")
 
   # Load default configuration file content at compile time, as this file won't be available
   # at run time.
-  private DEFAULT_BODY = {{ system("cat", "config/firegrid.toml").stringify }}
-
-  # Try it here: http://rubular.com/r/cPuMa8WlKA
-  private HEXADECIMAL_COLOR_REGEXP = /^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/
-
-  private MIN_GRID_SIZE_TRESHOLD = 4_u32
+  private DEFAULT_BODY = {{ system("cat", "config/firegrid.toml").stringify }}.as(String)
 
   def self.load : self
     new(File.read(FILENAME)).tap { |config| config.validate! }
@@ -24,24 +22,15 @@ class Firegrid::Settings::Config
     new
   end
 
-  def initialize(body = DEFAULT_BODY)
-    @content = TOML.parse(body)
+  def initialize(@body = DEFAULT_BODY)
+    @content = parse.as(Hash(String, TOML::Type))
   end
 
-  def validate!
-    validate_color!(border_color, key: "border")
-
-    validate_color!(font_color, key: "font")
-
-    validate_keys!
-  end
-
-  def border_color
-    @content["colors"].as(Hash)["border"].as(String)
-  end
-
-  def font_color
-    @content["colors"].as(Hash)["font"].as(String)
+  def colors
+    {
+      "border" => extract_value("colors", "border").as(String),
+      "font"   => extract_value("colors", "font").as(String),
+    }
   end
 
   def max_grid_size
@@ -52,33 +41,23 @@ class Firegrid::Settings::Config
     @_keybindings ||= Keybindings.new({"exit" => exit_key, "squares" => square_keys})
   end
 
-  private def validate_color!(value, key)
-    msg = "#{key.capitalize} color must be a valid hexadecimal color"
-
-    raise InvalidConfiguration.new(msg) unless HEXADECIMAL_COLOR_REGEXP.match(value)
-  end
-
-  private def validate_keys!
-    if max_grid_size < MIN_GRID_SIZE_TRESHOLD
-      raise InvalidConfiguration.new("Please specify at least 4 square keys")
-    end
-
-    all_keys = square_keys.concat([exit_key])
-
-    if all_keys != all_keys.uniq
-      raise InvalidConfiguration.new("Please remove duplicate keys")
-    end
-  end
-
   private def exit_key
-    keys["exit"].as(String)
+    extract_value("keys", "exit").as(String)
   end
 
   private def square_keys
-    keys["squares"].as(Array(TOML::Type)).map { |key| key.to_s }
+    extract_value("keys", "squares").as(Array(TOML::Type)).map { |key| key.to_s }
   end
 
-  private def keys
-    @content["keys"].as(Hash)
+  private def parse
+    TOML.parse(@body)
+  rescue TOML::ParseException
+    {} of String => TOML::Type
+  end
+
+  private def extract_value(section, key)
+    values = @content[section].as(Hash(String, TOML::Type))
+
+    values.has_key?(key) ? values[key] : nil
   end
 end
