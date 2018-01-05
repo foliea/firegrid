@@ -15,7 +15,7 @@ class Firegrid::Settings::Config
   def self.load : self
     new(File.read(FILENAME)).tap { |config| config.validate! }
   rescue e : InvalidConfiguration
-    puts "#{FILENAME}: #{e.message}"
+    STDERR.puts("#{FILENAME}: #{e.message}")
 
     new
   rescue Errno
