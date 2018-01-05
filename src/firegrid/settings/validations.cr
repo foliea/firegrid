@@ -48,7 +48,7 @@ module Firegrid::Settings::Validations
     value = extract_value("keys", "exit")
 
     unless value.is_a?(String)
-      raise InvalidConfiguration.new("Please specify a valid key (as string)")
+      raise InvalidConfiguration.new("Please specify a valid exit key")
     end
   end
 
