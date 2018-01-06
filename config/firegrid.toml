@@ -9,7 +9,7 @@ font = "#d64937"
 # default: Escape
 exit = "Escape"
 #
-# Minimum square keys required: 4, up to whatever you want.
+# Minimum square keys required: 8, up to whatever you want.
 #
 # More square keys will reduce the number of required key strokes.
 #

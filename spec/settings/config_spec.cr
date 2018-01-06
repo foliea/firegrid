@@ -1,6 +1,8 @@
 require "../spec_helper"
 
 describe Config do
+  square_keys = %(["a", "b", "c", "d", "e", "f", "g", "h"])
+
   valid_body = %(
     [colors]
     border = "#000000"
@@ -8,7 +10,7 @@ describe Config do
 
     [keys]
     exit = "Escape"
-    squares = ["a", "b", "c", "d"]
+    squares = #{square_keys}
   )
 
   describe "#validate!" do
@@ -93,9 +95,7 @@ describe Config do
     context "when square keys are missing" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
-          Config.new(
-            valid_body.gsub("squares = [\"a\", \"b\", \"c\", \"d\"]", "")
-          ).validate!
+          Config.new(valid_body.gsub("squares = #{square_keys}", "")).validate!
         end
       end
     end
@@ -111,7 +111,7 @@ describe Config do
     context "when square keys count is below the minimum grid size" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
-          Config.new(valid_body.gsub(%(["a", "b", "c", "d"]), "[]")).validate!
+          Config.new(valid_body.gsub(square_keys, "[]")).validate!
         end
       end
     end
@@ -128,7 +128,7 @@ describe Config do
 
   describe "#max_grid_size" do
     it "equals square keys count from given body" do
-      Config.new(valid_body).max_grid_size.should eq(4_u32)
+      Config.new(valid_body).max_grid_size.should eq(8_u32)
     end
   end
 end

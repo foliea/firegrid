@@ -2,7 +2,7 @@ module Firegrid::Settings::Validations
   # Try it here: http://rubular.com/r/cPuMa8WlKA
   private HEXADECIMAL_COLOR_REGEXP = /^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/
 
-  private MIN_GRID_SIZE_TRESHOLD = 4_u32
+  private MIN_GRID_SIZE_TRESHOLD = 8_u32
 
   private EXPECTED_SECTIONS = %w(colors keys)
 
@@ -56,7 +56,9 @@ module Firegrid::Settings::Validations
     value = extract_value("keys", "squares")
 
     unless value.is_a?(Array(TOML::Type)) && square_keys.size >= MIN_GRID_SIZE_TRESHOLD
-      raise InvalidConfiguration.new("Please specify at least 4 square keys")
+      msg = "Please specify at least #{MIN_GRID_SIZE_TRESHOLD} square keys"
+
+      raise InvalidConfiguration.new(msg)
     end
   end
 
