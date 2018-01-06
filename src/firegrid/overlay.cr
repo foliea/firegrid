@@ -25,7 +25,7 @@ class Firegrid::Overlay < Qt::Widget
 
     return square.center if square.precise_for?(@display.width, @display.height)
 
-    @grid = square.to_grid.resize_for(@display.width, @display.height)
+    @grid = square.to_grid(@config.max_grid_size).resize_for(@display.width, @display.height)
 
     repaint
   end

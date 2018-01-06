@@ -71,14 +71,18 @@ describe "Square" do
   end
 
   describe "#to_grid" do
+    origin = Position.new(50_u32, 40_u32)
+
+    square = Square.new(10_u32, 10_u32, origin: origin)
+
     it "returns a grid with same size and origin" do
-      origin = Position.new(50_u32, 40_u32)
-
-      square = Square.new(10_u32, 10_u32, origin: origin)
-
       expected_grid = Grid.new(10_u32, 10_u32, origin: origin)
 
-      square.to_grid.should eq(expected_grid)
+      square.to_grid(expected_grid.max_size).should eq(expected_grid)
+    end
+
+    it "returns a grid with given max size" do
+      square.to_grid(10_u32).max_size.should eq(10_u32)
     end
   end
 

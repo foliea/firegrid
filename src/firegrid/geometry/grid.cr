@@ -44,7 +44,10 @@ class Firegrid::Geometry::Grid
   end
 
   def ==(grid : self) : Bool
-    @width == grid.width && @height == grid.height && @origin == grid.origin
+    @width == grid.width &&
+      @height == grid.height &&
+      @origin == grid.origin &&
+      @max_size == grid.max_size
   end
 
   private def resize_for?(width : UInt32, height : UInt32)

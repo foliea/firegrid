@@ -75,6 +75,12 @@ describe "Grid" do
 
     context "when given origin has the same width, height, and origin values" do
       it { (grid == Grid.new(0_u32, 0_u32, origin: position)).should be_true }
+
+      context "when given grid has a different max size" do
+        it do
+          (grid == Grid.new(0_u32, 0_u32, origin: position, max_size: 4_u32)).should be_false
+        end
+      end
     end
   end
 end

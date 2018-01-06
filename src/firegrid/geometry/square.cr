@@ -44,8 +44,8 @@ class Firegrid::Geometry::Square
     }
   end
 
-  def to_grid : Grid
-    Grid.new(@width, @height, origin: @origin)
+  def to_grid(max_size : UInt32) : Grid
+    Grid.new(@width, @height, origin: @origin, max_size: max_size)
   end
 
   def ==(square : self) : Bool
