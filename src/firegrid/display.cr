@@ -3,7 +3,8 @@ require "./geometry/position"
 
 class Firegrid::Display < Qt::DesktopWidget
   private BACKGROUND_FILENAME = "/tmp/firegrid.png"
-  private DEFAULT_DPI         = 96
+  private DEFAULT_DPI         =    96
+  private DEFAULT_GRAB_ID     = 1_u32
 
   @mouse_location : Geometry::Position
 
@@ -30,13 +31,16 @@ class Firegrid::Display < Qt::DesktopWidget
   end
 
   def capture : String
-    current_screen.grab_window(current_screen_number.to_u32).save(BACKGROUND_FILENAME)
+    current_screen.grab_window(DEFAULT_GRAB_ID).save(BACKGROUND_FILENAME)
 
     BACKGROUND_FILENAME
   end
 
   def click(position : Geometry::Position)
-    Process.run("xdotool mousemove #{position.x} #{position.y} click 1", shell: true)
+    x = origin.x + position.x
+    y = origin.y + position.y
+
+    Process.run("xdotool mousemove #{x} #{y} click 1", shell: true)
   end
 
   private def geometry
@@ -44,22 +48,16 @@ class Firegrid::Display < Qt::DesktopWidget
   end
 
   private def current_screen
-    Qt::GuiApplication.screens[current_screen_number]
-  end
+    Qt::GuiApplication.screens.find do |screen|
+      geometry = screen.geometry
 
-  private def current_screen_number
-    geometries = Qt::GuiApplication.screens.map { |s| s.geometry }
-
-    geometry = geometries.find do |geometry|
       top_left_corner = Geometry::Position.new(geometry.x.to_u32, geometry.y.to_u32)
 
       bottom_right_corner = Geometry::Position.new(
         (geometry.x + geometry.width).to_u32, (geometry.y + geometry.height).to_u32
       )
       @mouse_location.between?(top_left_corner, bottom_right_corner)
-    end
-
-    geometries.index(geometry).as(Int32)
+    end.as(Qt::Screen)
   end
 
   # This a stopgap which must be removed when the following pull request is merged:
