@@ -2,6 +2,7 @@ class Firegrid::Settings::Keybindings
   private HUMAN_READABLE_KEYS = {
     "Escape"    => "\e",
     "Backspace" => "\b",
+    "Enter"     => "\r",
     "Tab"       => "\t",
   }
 
