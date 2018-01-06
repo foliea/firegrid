@@ -4,7 +4,7 @@ require "./geometry/position"
 class Firegrid::Display < Qt::DesktopWidget
   private BACKGROUND_FILENAME = "/tmp/firegrid.png"
   private DEFAULT_DPI         =    96
-  private DEFAULT_GRAB_ID     = 1_u32
+  private DEFAULT_GRAB_ID     = 0_u32
 
   @mouse_location : Geometry::Position
 
@@ -57,7 +57,7 @@ class Firegrid::Display < Qt::DesktopWidget
         (geometry.x + geometry.width).to_u32, (geometry.y + geometry.height).to_u32
       )
       @mouse_location.between?(top_left_corner, bottom_right_corner)
-    end.as(Qt::Screen)
+    end.not_nil!
   end
 
   # This a stopgap which must be removed when the following pull request is merged:
