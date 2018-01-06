@@ -1,7 +1,8 @@
 class Firegrid::Settings::Keybindings
   private HUMAN_READABLE_KEYS = {
-    "Escape" => "\e",
-    "Tab"    => "\t",
+    "Escape"    => "\e",
+    "Backspace" => "\b",
+    "Tab"       => "\t",
   }
 
   def initialize(@keys : Hash(String, Array(String) | String)); end
