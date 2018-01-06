@@ -19,7 +19,7 @@ class Firegrid::Window < Qt::MainWindow
   end
 
   def key_press_event(event)
-    return close if @config.keybindings.exit_key?(event.text)
+    return close if @config.keybindings.exit_keycode?(event.text)
 
     selection = attempt_selection(event.text)
 
@@ -44,10 +44,10 @@ class Firegrid::Window < Qt::MainWindow
     close
   end
 
-  private def attempt_selection(key : String)
-    return unless @config.keybindings.square_key?(key)
+  private def attempt_selection(keycode : String)
+    return unless @config.keybindings.square_keycode?(keycode)
 
-    target_id = @config.keybindings.square_id(key)
+    target_id = @config.keybindings.square_id(keycode)
 
     @overlay.select(target_id)
   end
