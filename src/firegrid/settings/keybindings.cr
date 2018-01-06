@@ -4,6 +4,7 @@ class Firegrid::Settings::Keybindings
     "Backspace" => "\b",
     "Enter"     => "\r",
     "Tab"       => "\t",
+    "Del"       => "\u007f",
   }
 
   def initialize(@keys : Hash(String, Array(String) | String)); end
