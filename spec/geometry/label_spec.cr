@@ -1,21 +1,17 @@
 require "../spec_helper"
 
 describe "Label" do
-  describe "==" do
-    label = Label.new(Position.new(0_u32, 0_u32), size: 2_u32)
+  square = Square.new(50_u32, 50_u32, origin: Position.new(100_u32, 120_u32))
 
-    it { (label == Label.new(Position.new(0_u32, 1_u32), size: 3_u32)).should be_false }
-
-    context "when given label has the same origin value" do
-      it { (label == Label.new(Position.new(0_u32, 0_u32), size: 3_u32)).should be_false }
+  describe "#size" do
+    it "returns the calculated size from given square" do
+      Label.new(square, "a").size.should eq(25_u32)
     end
+  end
 
-    context "when given label has the same size value" do
-      it { (label == Label.new(Position.new(0_u32, 1_u32), size: 2_u32)).should be_false }
-    end
-
-    context "when given label has the same origin and size values" do
-      it { (label == Label.new(Position.new(0_u32, 0_u32), size: 2_u32)).should be_true }
+  describe "#origin" do
+    it "returns the calculated origin from given square" do
+      Label.new(square, "a").origin.should eq(Position.new(113_u32, 157_u32))
     end
   end
 end

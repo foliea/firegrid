@@ -43,12 +43,14 @@ class Firegrid::Overlay < Qt::Widget
   private def draw_texts(painter : Qt::Painter)
     painter.pen = Qt::Color.new(@config.colors["font"])
 
-    @grid.squares.map { |square| square.label }.each_with_index do |label, square_id|
-      text = @config.keybindings.square_key(square_id)
+    @grid.squares.each_with_index do |square, index|
+      text = @config.keybindings.square_key(index)
+
+      label = Geometry::Label.new(square, text[0..1])
 
       painter.font.point_size = label.size.to_i / @display.scale_factor
 
-      painter.draw_text(Qt::Point.new(label.origin.x, label.origin.y), text[0..1])
+      painter.draw_text(Qt::Point.new(label.origin.x, label.origin.y), label.content)
     end
   end
 end

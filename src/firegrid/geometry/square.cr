@@ -17,14 +17,6 @@ class Firegrid::Geometry::Square
     Position.new(@origin.x + @width / 2, @origin.y + @height / 2)
   end
 
-  def label : Label
-    label_size = (@width < @height ? @width : @height) / 2
-
-    label_origin = Position.new(center.x - label_size / 2, center.y + label_size / 2)
-
-    Label.new(label_origin, label_size)
-  end
-
   def borders : Hash(String, Border)
     x = @origin.x
     y = @origin.y
