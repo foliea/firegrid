@@ -1,32 +1,39 @@
 class Firegrid::Settings::Keybindings
   private HUMAN_READABLE_KEYS = {
-    "Escape" => "\e",
-    "Tab"    => "\t",
+    "Escape"    => "\e",
+    "Backspace" => "\b",
+    "Enter"     => "\r",
+    "Tab"       => "\t",
+    "Del"       => "\u007f",
   }
 
   def initialize(@keys : Hash(String, Array(String) | String)); end
 
-  def exit_key?(key : String) : Bool
-    convert_key(@keys["exit"].as(String)) == key
+  def exit_keycode?(keycode : String) : Bool
+    @keys["exit"].as(String) == human_readable_key(keycode)
   end
 
-  def square_key?(key : String) : Bool
-    @keys["squares"].includes?(key)
+  def square_keycode?(keycode : String) : Bool
+    squares.includes?(human_readable_key(keycode))
   end
 
-  def square_id(key : String) : Int32
-    raise NoMatchingKey.new unless square_key?(key)
+  def square_id(keycode : String) : Int32
+    raise NoMatchingKey.new unless square_keycode?(keycode)
 
-    @keys["squares"].index(key).not_nil!
+    squares.index(human_readable_key(keycode)).not_nil!
   end
 
   def square_key(id : Int32) : String
-    raise NoMatchingKey.new unless (0..@keys["squares"].size).includes?(id)
+    raise NoMatchingKey.new unless (0..squares.size).includes?(id)
 
-    convert_key(@keys["squares"][id].as(String))
+    squares[id].as(String)
   end
 
-  private def convert_key(key : String) : String
-    HUMAN_READABLE_KEYS.has_key?(key) ? HUMAN_READABLE_KEYS[key] : key
+  private def human_readable_key(keycode : String) : String
+    HUMAN_READABLE_KEYS.has_value?(keycode) ? HUMAN_READABLE_KEYS.key(keycode) : keycode
+  end
+
+  private def squares
+    @keys["squares"]
   end
 end

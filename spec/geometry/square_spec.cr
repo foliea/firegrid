@@ -29,14 +29,6 @@ describe "Square" do
     end
   end
 
-  describe "#label" do
-    it "returns square label with calculated origin an size" do
-      square = Square.new(50_u32, 50_u32, origin: Position.new(100_u32, 120_u32))
-
-      square.label.should eq(Label.new(Position.new(113_u32, 157_u32), size: 25_u32))
-    end
-  end
-
   describe "#borders" do
     origin = Position.new(10_u32, 20_u32)
 
