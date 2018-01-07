@@ -7,7 +7,7 @@ class Firegrid::Geometry::Position
 
   def initialize(@x : UInt32, @y : UInt32); end
 
-  def between?(point_a : self, point_b : self) : Bool
+  def inner?(point_a : self, point_b : self) : Bool
     x >= point_a.x && x <= point_b.x && y >= point_a.y && y <= point_b.y
   end
 

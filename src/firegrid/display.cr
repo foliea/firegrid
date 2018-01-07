@@ -56,7 +56,7 @@ class Firegrid::Display < Qt::DesktopWidget
       bottom_right_corner = Geometry::Position.new(
         (geometry.x + geometry.width).to_u32, (geometry.y + geometry.height).to_u32
       )
-      @mouse_location.between?(top_left_corner, bottom_right_corner)
+      @mouse_location.inner?(top_left_corner, bottom_right_corner)
     end.not_nil!
   end
 

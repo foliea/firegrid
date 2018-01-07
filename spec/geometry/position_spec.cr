@@ -11,14 +11,14 @@ describe "Position" do
     end
   end
 
-  describe "#between?" do
+  describe "#inner?" do
     point_a = Position.new(0_u32, 1_u32)
     point_b = Position.new(10_u32, 5_u32)
 
-    it { Position.new(12_u32, 10_u32).between?(point_a, point_b).should be_false }
+    it { Position.new(12_u32, 10_u32).inner?(point_a, point_b).should be_false }
 
-    context "when position is between point a and point b" do
-      it { Position.new(1_u32, 1_u32).between?(point_a, point_b).should be_true }
+    context "when position is inner point a and point b" do
+      it { Position.new(1_u32, 1_u32).inner?(point_a, point_b).should be_true }
     end
   end
 
