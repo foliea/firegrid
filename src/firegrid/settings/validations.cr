@@ -1,3 +1,5 @@
+require "toml"
+
 module Firegrid::Settings::Validations
   # Try it here: http://rubular.com/r/cPuMa8WlKA
   private HEXADECIMAL_COLOR_REGEXP = /^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/
@@ -9,6 +11,8 @@ module Firegrid::Settings::Validations
   private EXPECTED_COLORS = %w(border font)
 
   def validate!
+    validate_content!
+
     validate_sections!
 
     validate_colors!
@@ -16,9 +20,15 @@ module Firegrid::Settings::Validations
     validate_keys!
   end
 
+  private def validate_content!
+    content
+  rescue e : TOML::ParseException
+    raise InvalidConfiguration.new(e.message)
+  end
+
   private def validate_sections!
     EXPECTED_SECTIONS.each do |section|
-      unless @content.has_key?(section)
+      unless content.has_key?(section)
         raise InvalidConfiguration.new("Missing #{section} section")
       end
     end

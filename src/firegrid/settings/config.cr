@@ -1,4 +1,3 @@
-require "toml"
 require "./keybindings"
 require "./validations"
 require "./errors"
@@ -22,9 +21,7 @@ class Firegrid::Settings::Config
     new
   end
 
-  def initialize(@body = DEFAULT_BODY)
-    @content = parse.as(Hash(String, TOML::Type))
-  end
+  def initialize(@body = DEFAULT_BODY); end
 
   def colors : Hash(String, String)
     {
@@ -49,14 +46,12 @@ class Firegrid::Settings::Config
     extract_value("keys", "squares").as(Array(TOML::Type)).map { |key| key.to_s }
   end
 
-  private def parse
+  private def content
     TOML.parse(@body)
-  rescue TOML::ParseException
-    {} of String => TOML::Type
   end
 
   private def extract_value(section : String, key : String)
-    values = @content[section].as(Hash(String, TOML::Type))
+    values = content[section].as(Hash(String, TOML::Type))
 
     values.has_key?(key) ? values[key] : nil
   end
