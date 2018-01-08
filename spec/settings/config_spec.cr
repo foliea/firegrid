@@ -120,8 +120,8 @@ describe Config do
   describe "#colors" do
     it "returns colors from given body" do
       Config.new(valid_body).colors.should eq({
-        "border" => "#000000",
-        "font"   => "#ffffff",
+        :border => "#000000",
+        :font   => "#ffffff",
       })
     end
   end

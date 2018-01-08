@@ -23,10 +23,10 @@ class Firegrid::Settings::Config
 
   def initialize(@body = DEFAULT_BODY); end
 
-  def colors : Hash(String, String)
+  def colors : Hash(Symbol, String)
     {
-      "border" => extract_value("colors", "border").as(String),
-      "font"   => extract_value("colors", "font").as(String),
+      :border => extract_value("colors", "border").as(String),
+      :font   => extract_value("colors", "font").as(String),
     }
   end
 
@@ -35,7 +35,7 @@ class Firegrid::Settings::Config
   end
 
   def keybindings : Keybindings
-    @_keybindings ||= Keybindings.new({"exit" => exit_key, "squares" => square_keys})
+    @_keybindings ||= Keybindings.new({:exit => exit_key, :squares => square_keys})
   end
 
   private def exit_key

@@ -7,10 +7,10 @@ class Firegrid::Settings::Keybindings
     "Del"       => "\u007f",
   }
 
-  def initialize(@keys : Hash(String, Array(String) | String)); end
+  def initialize(@keys : Hash(Symbol, Array(String) | String)); end
 
   def exit_keycode?(keycode : String) : Bool
-    @keys["exit"].as(String) == human_readable_key(keycode)
+    @keys[:exit].as(String) == human_readable_key(keycode)
   end
 
   def square_keycode?(keycode : String) : Bool
@@ -34,6 +34,6 @@ class Firegrid::Settings::Keybindings
   end
 
   private def squares
-    @keys["squares"]
+    @keys[:squares]
   end
 end
