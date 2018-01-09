@@ -40,10 +40,10 @@ class Firegrid::Overlay < Qt::Widget
   private def draw_lines(painter : Qt::Painter)
     painter.pen = Qt::Color.new(@config.colors[:border])
 
-    @grid.squares.map { |square| square.borders.values }.flatten.each do |l|
-      next if (l.origin.x.zero? && l.limit.x.zero?) || (l.origin.y.zero? && l.limit.y.zero?)
+    @grid.squares.map { |square| square.borders.values }.flatten.each do |b|
+      next if (b.origin.x.zero? && b.limit.x.zero?) || (b.origin.y.zero? && b.limit.y.zero?)
 
-      painter.draw_line(l.origin.x.to_i, l.origin.y.to_i, l.limit.x.to_i, l.limit.y.to_i)
+      painter.draw_line(b.origin.x.to_i, b.origin.y.to_i, b.limit.x.to_i, b.limit.y.to_i)
     end
   end
 
