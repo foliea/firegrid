@@ -45,9 +45,9 @@ class Firegrid::Window < Qt::MainWindow
   private def attempt_selection(keycode : String)
     return unless @config.keybindings.square_keycode?(keycode)
 
-    target_id = @config.keybindings.square_id(keycode)
+    square_id = @config.keybindings.square_id(keycode)
 
-    status, selection = @overlay.select(target_id)
+    status, selection = @overlay.select(square_id)
 
     close_then_click(selection.not_nil!) if status == :clickable
   end

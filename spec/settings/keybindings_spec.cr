@@ -2,7 +2,7 @@ require "../spec_helper"
 
 describe "Keybindings" do
   keybindings = Keybindings.new({
-    "exit" => "Escape", "squares" => ["a", ";", "Backspace", "b"],
+    :exit => "Escape", :squares => ["a", ";", "Backspace", "b"],
   })
 
   describe "#exit_keycode?" do

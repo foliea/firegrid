@@ -19,7 +19,7 @@ class Firegrid::Overlay < Qt::Widget
   end
 
   def select(square_id : Int32) : Tuple(Symbol, Geometry::Position | Nil)
-    return {:unselectable, nil} unless @grid.selectable?(square_id)
+    return {:unclickable, nil} unless @grid.has_square?(square_id)
 
     square = @grid.squares[square_id]
 
@@ -29,7 +29,7 @@ class Firegrid::Overlay < Qt::Widget
 
     focus_square(square)
 
-    {:focused, nil}
+    {:unclickable, nil}
   end
 
   private def focus_square(square : Geometry::Square)

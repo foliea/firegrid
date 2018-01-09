@@ -13,13 +13,13 @@ describe "Grid" do
     end
   end
 
-  describe "#selectable?" do
+  describe "#has_square?" do
     grid = Grid.new(5_u32, 5_u32, max_size: 10_u32)
 
-    it { grid.selectable?(8).should be_true }
+    it { grid.has_square?(8).should be_true }
 
     context "when square id doesn't match an existing square" do
-      it { grid.selectable?(9).should be_false }
+      it { grid.has_square?(9).should be_false }
     end
   end
 

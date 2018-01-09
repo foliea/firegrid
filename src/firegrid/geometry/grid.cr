@@ -21,7 +21,7 @@ class Firegrid::Geometry::Grid
     self.class.new(@width, @height, @origin, RESIZED_MAX_TOTAL_SQUARE_COUNT)
   end
 
-  def selectable?(square_id : Int32) : Bool
+  def has_square?(square_id : Int32) : Bool
     square_id < squares.size
   end
 
