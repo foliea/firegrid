@@ -18,15 +18,22 @@ class Firegrid::Overlay < Qt::Widget
     end
   end
 
-  def select(square_id : Int32)
-    return unless @grid.selectable?(square_id)
+  def select(square_id : Int32) : Tuple(Symbol, Geometry::Position | Nil)
+    return {:unselectable, nil} unless @grid.selectable?(square_id)
 
     square = @grid.squares[square_id]
 
-    return square.center if square.precise_for?(@display.width, @display.height)
+    if square.precise_for?(@display.width, @display.height)
+      return {:clickable, square.center}
+    end
 
+    focus_square(square)
+
+    {:focused, nil}
+  end
+
+  private def focus_square(square : Geometry::Square)
     @grid = square.to_grid(@config.max_grid_size).resize_for(@display.width, @display.height)
-
     repaint
   end
 

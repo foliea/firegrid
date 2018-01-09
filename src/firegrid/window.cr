@@ -21,9 +21,7 @@ class Firegrid::Window < Qt::MainWindow
   def key_press_event(event)
     return close if @config.keybindings.exit_keycode?(event.text)
 
-    selection = attempt_selection(event.text)
-
-    close_then_click(selection) if selection
+    attempt_selection(event.text)
   end
 
   def close_then_click(selection : Geometry::Position)
@@ -49,6 +47,8 @@ class Firegrid::Window < Qt::MainWindow
 
     target_id = @config.keybindings.square_id(keycode)
 
-    @overlay.select(target_id)
+    status, selection = @overlay.select(target_id)
+
+    close_then_click(selection.not_nil!) if status == :clickable
   end
 end
