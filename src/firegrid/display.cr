@@ -37,10 +37,9 @@ class Firegrid::Display < Qt::DesktopWidget
   end
 
   def click(position : Geometry::Position)
-    x = origin.x + position.x
-    y = origin.y + position.y
+    cmd = "xdotool mousemove #{origin.x + position.x} #{origin.y + position.y} click 1"
 
-    Process.run("xdotool mousemove #{x} #{y} click 1", shell: true)
+    Process.run(cmd, shell: true)
   end
 
   private def geometry
