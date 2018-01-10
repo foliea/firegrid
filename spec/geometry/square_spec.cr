@@ -7,20 +7,6 @@ describe "Square" do
     Square.new(10_u32, 10_u32, origin: origin).origin.should eq(origin)
   end
 
-  describe "#precise_for?" do
-    square = Square.new(10_u32, 10_u32, origin: Position.new(0_u32, 0_u32))
-
-    it { square.precise_for?(20_u32, 20_u32).should be_false }
-
-    context "when square width is below precision rate of given width" do
-      it { square.precise_for?(1000_u32, 20_u32).should be_true }
-    end
-
-    context "when square height is below precision rate of given height" do
-      it { square.precise_for?(20_u32, 1000_u32).should be_true }
-    end
-  end
-
   describe "#center" do
     it "returns square center origin" do
       square = Square.new(50_u32, 50_u32, origin: Position.new(100_u32, 120_u32))
@@ -68,7 +54,7 @@ describe "Square" do
     square = Square.new(10_u32, 10_u32, origin: origin)
 
     it "returns a grid with same size and origin" do
-      expected_grid = Grid.new(10_u32, 10_u32, origin: origin)
+      expected_grid = Grid.new(10_u32, 10_u32, origin: origin, max_size: 4_u32)
 
       square.to_grid(expected_grid.max_size).should eq(expected_grid)
     end

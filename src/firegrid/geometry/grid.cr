@@ -1,9 +1,7 @@
 require "./square"
 
 class Firegrid::Geometry::Grid
-  private MIN_VERTICAL_SQUARE_COUNT      = 1_u32
-  private RESIZED_MAX_TOTAL_SQUARE_COUNT = 4_u32
-  private RESIZE_REQUIRED_RATE           = 5_u32
+  private MIN_VERTICAL_SQUARE_COUNT = 1_u32
 
   getter width : UInt32, height : UInt32, origin : Position, max_size : UInt32
 
@@ -13,16 +11,6 @@ class Firegrid::Geometry::Grid
     @max_size : UInt32,
     @origin = Position.default
   ); end
-
-  def resize_for(width : UInt32, height : UInt32) : Grid
-    return self unless resize_for?(width, height)
-
-    self.class.new(@width, @height, RESIZED_MAX_TOTAL_SQUARE_COUNT, @origin)
-  end
-
-  def has_square?(square_id : Int32) : Bool
-    square_id < squares.size
-  end
 
   def squares : Array(Square)
     horizontal_count, vertical_count = format
@@ -47,11 +35,6 @@ class Firegrid::Geometry::Grid
       @height == grid.height &&
       @origin == grid.origin &&
       @max_size == grid.max_size
-  end
-
-  private def resize_for?(width : UInt32, height : UInt32)
-    @width <= width * RESIZE_REQUIRED_RATE / 100 ||
-      @height <= height * RESIZE_REQUIRED_RATE / 100
   end
 
   private def format(vertical_count = MIN_VERTICAL_SQUARE_COUNT)
