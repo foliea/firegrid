@@ -14,7 +14,7 @@ class Firegrid::Geometry::Panel
 
     square = @grid.squares[square_id]
 
-    return {:clickable, square.center} if below_rate?(square, PRECISON_RATE)
+    return {:clickable, square.center} if below_dimensions?(square, PRECISON_RATE)
 
     focus(square)
 
@@ -22,12 +22,12 @@ class Firegrid::Geometry::Panel
   end
 
   private def focus(square : Square)
-    max_size = below_rate?(square, RESIZE_RATE) ? RESIZED_MAX_SIZE : @max_grid_size
+    max_size = below_dimensions?(square, RESIZE_RATE) ? RESIZED_MAX_SIZE : @max_grid_size
 
     @grid = square.to_grid(max_size)
   end
 
-  private def below_rate?(square : Square, rate : UInt32 | Float64)
+  private def below_dimensions?(square : Square, rate : UInt32 | Float64)
     square.width <= @width * rate / 100 || square.height <= @height * rate / 100
   end
 end
