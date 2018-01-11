@@ -1,14 +1,14 @@
 require "qt5"
-require "./settings/config"
 require "./geometry/grid"
+require "./geometry/label"
 
 class Firegrid::Overlay < Qt::Widget
-  def initialize(@display : Display, @config : Settings::Config, *args)
+  def initialize(
+    @grid : Geometry::Grid,
+    @config : Settings::Config,
+    @scale_factor : Int32, *args
+  )
     super(*args)
-
-    @grid = Geometry::Grid.new(
-      @display.width, @display.height, max_size: @config.max_grid_size
-    )
   end
 
   def paint_event(_event)
@@ -18,22 +18,9 @@ class Firegrid::Overlay < Qt::Widget
     end
   end
 
-  def select(square_id : Int32) : Tuple(Symbol, Geometry::Position | Nil)
-    return {:unclickable, nil} unless @grid.has_square?(square_id)
+  def refresh(grid : Geometry::Grid)
+    @grid = grid
 
-    square = @grid.squares[square_id]
-
-    if square.precise_for?(@display.width, @display.height)
-      return {:clickable, square.center}
-    end
-
-    focus_square(square)
-
-    {:unclickable, nil}
-  end
-
-  private def focus_square(square : Geometry::Square)
-    @grid = square.to_grid(@config.max_grid_size).resize_for(@display.width, @display.height)
     repaint
   end
 
@@ -55,7 +42,7 @@ class Firegrid::Overlay < Qt::Widget
 
       label = Geometry::Label.new(square, text[0..1])
 
-      painter.font.point_size = label.size.to_i / @display.scale_factor
+      painter.font.point_size = label.size.to_i / @scale_factor
 
       painter.draw_text(Qt::Point.new(label.origin.x, label.origin.y), label.content)
     end

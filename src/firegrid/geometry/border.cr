@@ -1,5 +1,3 @@
-require "./position"
-
 class Firegrid::Geometry::Border
   getter origin : Position, limit : Position
 

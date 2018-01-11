@@ -1,33 +1,31 @@
 require "qt5"
 require "./settings/config"
+require "./geometry/panel"
 
 class Firegrid::Window < Qt::MainWindow
   private TITLE = "Firegrid"
   private STATE = Qt::WindowStates::WindowFullScreen
 
-  def initialize(@display = Display.new, @config = Settings::Config.load, *args)
+  @keybindings : Settings::Keybindings
+
+  def initialize(@display = Display.new, config = Settings::Config.load, *args)
     super(*args)
 
-    @overlay = Overlay.new(@display, @config)
+    @panel = Geometry::Panel.new(@display.width, @display.height, config.max_grid_size)
 
-    self.window_state = STATE
-    self.window_title = TITLE
-    self.central_widget = @overlay
-    self.fixed_width = @display.width.to_i
-    self.fixed_height = @display.height.to_i
-    self.style_sheet = "background-image: url(#{@display.capture});"
+    @overlay = Overlay.new(@panel.grid, config, @display.scale_factor)
+
+    @keybindings = config.keybindings
+
+    configure
   end
 
   def key_press_event(event)
-    return close if @config.keybindings.exit_keycode?(event.text)
+    keycode = event.text
 
-    attempt_selection(event.text)
-  end
+    return close if @keybindings.exit_keycode?(keycode)
 
-  def close_then_click(selection : Geometry::Position)
-    close
-
-    @display.click(selection)
+    choose(@keybindings.square_id(keycode)) if @keybindings.square_keycode?(keycode)
   end
 
   def resize_event(_event)
@@ -42,13 +40,26 @@ class Firegrid::Window < Qt::MainWindow
     close
   end
 
-  private def attempt_selection(keycode : String)
-    return unless @config.keybindings.square_keycode?(keycode)
+  private def choose(square_id : Int32)
+    status, selection = @panel.select(square_id)
 
-    square_id = @config.keybindings.square_id(keycode)
+    return close_then_click(selection.not_nil!) if status == :clickable
 
-    status, selection = @overlay.select(square_id)
+    @overlay.refresh(@panel.grid)
+  end
 
-    close_then_click(selection.not_nil!) if status == :clickable
+  private def close_then_click(selection : Geometry::Position)
+    close
+
+    @display.click(selection)
+  end
+
+  private def configure
+    self.window_state = STATE
+    self.window_title = TITLE
+    self.central_widget = @overlay
+    self.fixed_width = @display.width.to_i
+    self.fixed_height = @display.height.to_i
+    self.style_sheet = "background-image: url(#{@display.capture});"
   end
 end

@@ -1,17 +1,9 @@
 require "./border"
-require "./grid"
-require "./label"
 
 class Firegrid::Geometry::Square
-  private PRECISON_RATE = 1.5
-
   getter width : UInt32, height : UInt32, origin : Position
 
   def initialize(@width : UInt32, @height : UInt32, @origin : Position); end
-
-  def precise_for?(width : UInt32, height : UInt32) : Bool
-    @width <= width * PRECISON_RATE / 100 || @height <= height * PRECISON_RATE / 100
-  end
 
   def center : Position
     Position.new(@origin.x + @width / 2, @origin.y + @height / 2)
