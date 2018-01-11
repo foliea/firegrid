@@ -36,7 +36,7 @@ describe Panel do
       status.should eq(:unclickable)
     end
 
-    it "creates a new resized grid from selected square" do
+    it "creates a new minimized grid from selected square" do
       panel = Panel.new(1920_u32, 1080_u32, max_grid_size: 40_u32)
 
       2.times { panel.select(0) }

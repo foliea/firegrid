@@ -1,7 +1,7 @@
 class Firegrid::Geometry::Panel
-  private RESIZED_MAX_SIZE = 4_u32
-  private RESIZE_RATE      = 5_u32
-  private PRECISON_RATE    =   1.5
+  private MINIMIZED_MAX_SIZE = 4_u32
+  private MINIMIZE_RATE      = 5_u32
+  private PRECISON_RATE      =   1.5
 
   getter grid : Grid
 
@@ -22,7 +22,7 @@ class Firegrid::Geometry::Panel
   end
 
   private def focus(square : Square)
-    max_size = below_dimensions?(square, RESIZE_RATE) ? RESIZED_MAX_SIZE : @max_grid_size
+    max_size = below_dimensions?(square, MINIMIZE_RATE) ? MINIMIZED_MAX_SIZE : @max_grid_size
 
     @grid = square.to_grid(max_size)
   end
