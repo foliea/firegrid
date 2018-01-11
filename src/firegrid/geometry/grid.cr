@@ -1,5 +1,3 @@
-require "./square"
-
 class Firegrid::Geometry::Grid
   private MIN_VERTICAL_SQUARE_COUNT = 1_u32
 

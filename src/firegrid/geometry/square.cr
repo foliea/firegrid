@@ -1,5 +1,4 @@
 require "./border"
-require "./grid"
 
 class Firegrid::Geometry::Square
   getter width : UInt32, height : UInt32, origin : Position

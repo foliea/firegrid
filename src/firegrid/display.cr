@@ -1,5 +1,4 @@
 require "qt5"
-require "./geometry/position"
 
 class Firegrid::Display < Qt::DesktopWidget
   private BACKGROUND_FILENAME = "/tmp/firegrid.png"

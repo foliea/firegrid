@@ -1,5 +1,4 @@
 require "qt5"
-require "./settings/config"
 require "./geometry/grid"
 require "./geometry/label"
 
