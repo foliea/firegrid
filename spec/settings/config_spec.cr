@@ -131,4 +131,10 @@ describe Config do
       Config.new(valid_body).max_grid_size.should eq(8)
     end
   end
+
+  describe "#square_keys" do
+    it "equals square keys" do
+      Config.new(valid_body).square_keys.should eq(%w(a b c d e f g h))
+    end
+  end
 end

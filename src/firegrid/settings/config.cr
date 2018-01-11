@@ -34,16 +34,16 @@ class Firegrid::Settings::Config
     square_keys.size
   end
 
+  def square_keys
+    extract_value("keys", "squares").as(Array(TOML::Type)).map { |key| key.to_s }
+  end
+
   def keybindings : Keybindings
     @_keybindings ||= Keybindings.new({:exit => exit_key, :squares => square_keys})
   end
 
   private def exit_key
     extract_value("keys", "exit").as(String)
-  end
-
-  private def square_keys
-    extract_value("keys", "squares").as(Array(TOML::Type)).map { |key| key.to_s }
   end
 
   private def content

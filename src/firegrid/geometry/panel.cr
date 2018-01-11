@@ -1,3 +1,5 @@
+require "./grid"
+
 class Firegrid::Geometry::Panel
   private MINIMIZED_MAX_SIZE =   4
   private MINIMIZE_RATE      =   5
@@ -19,6 +21,18 @@ class Firegrid::Geometry::Panel
     focus(square)
 
     {:unclickable, nil}
+  end
+
+  def borders
+    @grid.squares.map { |square| square.borders.values }.flatten.select do |b|
+      !((b.origin.x.zero? && b.limit.x.zero?) || (b.origin.y.zero? && b.limit.y.zero?))
+    end
+  end
+
+  def labels(keys)
+    @grid.squares.map_with_index do |square, index|
+      Geometry::Label.new(square, keys[index][0..1])
+    end
   end
 
   private def focus(square)
