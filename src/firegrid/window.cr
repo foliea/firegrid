@@ -13,7 +13,7 @@ class Firegrid::Window < Qt::MainWindow
 
     @panel = Geometry::Panel.new(@display.width, @display.height, config.max_grid_size)
 
-    @overlay = Overlay.new(@panel.grid, config, @display.scale_factor)
+    @overlay = Overlay.new(@panel.grid, config)
 
     @keybindings = config.keybindings
 

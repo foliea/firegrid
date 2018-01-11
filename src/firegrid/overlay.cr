@@ -3,11 +3,7 @@ require "./geometry/grid"
 require "./geometry/label"
 
 class Firegrid::Overlay < Qt::Widget
-  def initialize(
-    @grid : Geometry::Grid,
-    @config : Settings::Config,
-    @scale_factor : Int32, *args
-  )
+  def initialize(@grid : Geometry::Grid, @config : Settings::Config, *args)
     super(*args)
   end
 
@@ -42,7 +38,7 @@ class Firegrid::Overlay < Qt::Widget
 
       label = Geometry::Label.new(square, text[0..1])
 
-      painter.font.point_size = label.size.to_i / @scale_factor
+      painter.font.pixel_size = label.size.to_i
 
       painter.draw_text(Qt::Point.new(label.origin.x, label.origin.y), label.content)
     end

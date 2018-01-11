@@ -2,7 +2,6 @@ require "qt5"
 
 class Firegrid::Display < Qt::DesktopWidget
   private BACKGROUND_FILENAME = "/tmp/firegrid.png"
-  private DEFAULT_DPI         =    96
   private DEFAULT_GRAB_ID     = 0_u32
 
   @mouse_location : Geometry::Position
@@ -11,10 +10,6 @@ class Firegrid::Display < Qt::DesktopWidget
     super(*args)
 
     @mouse_location = fetch_mouse_location
-  end
-
-  def scale_factor : Int32
-    current_screen.logical_dots_per_inch.to_i / DEFAULT_DPI
   end
 
   def origin : Geometry::Position
@@ -58,7 +53,7 @@ class Firegrid::Display < Qt::DesktopWidget
     end.not_nil!
   end
 
-  # This a stopgap which must be removed when the following pull request is merged:
+  # This is a stopgap which must be removed when the following pull request is merged:
   # https://github.com/Papierkorb/qt5.cr/pull/7
   private def fetch_mouse_location
     io = IO::Memory.new
