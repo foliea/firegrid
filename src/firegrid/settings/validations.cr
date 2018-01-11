@@ -66,9 +66,9 @@ module Firegrid::Settings::Validations
     value = extract_value("keys", "squares")
 
     unless value.is_a?(Array(TOML::Type)) && square_keys.size >= MIN_GRID_SIZE_TRESHOLD
-      msg = "Please specify at least #{MIN_GRID_SIZE_TRESHOLD} square keys"
+      message = "Please specify at least #{MIN_GRID_SIZE_TRESHOLD} square keys"
 
-      raise InvalidConfiguration.new(msg)
+      raise InvalidConfiguration.new(message)
     end
   end
 
