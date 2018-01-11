@@ -1,5 +1,4 @@
 require "qt5"
-require "./settings/config"
 require "./geometry/panel"
 
 class Firegrid::Window < Qt::MainWindow
@@ -8,7 +7,7 @@ class Firegrid::Window < Qt::MainWindow
 
   @keybindings : Settings::Keybindings
 
-  def initialize(@display = Display.new, config = Settings::Config.load, *args)
+  def initialize(@display : Display, config : Settings::Config, *args)
     super(*args)
 
     @panel = Geometry::Panel.new(@display.width, @display.height, config.max_grid_size)
