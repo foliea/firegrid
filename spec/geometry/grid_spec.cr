@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe "Grid" do
+describe Grid do
   it "has given origin" do
     origin = Position.new(1_u32, 1_u32)
 

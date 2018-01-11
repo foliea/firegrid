@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe "Border" do
+describe Border do
   describe "==" do
     border = Border.new(Position.new(0_u32, 0_u32), Position.new(1_u32, 1_u32))
 

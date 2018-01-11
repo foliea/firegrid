@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe "Square" do
+describe Square do
   it "has given origin" do
     origin = Position.new(1_u32, 1_u32)
 

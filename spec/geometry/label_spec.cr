@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe "Label" do
+describe Label do
   square = Square.new(50_u32, 50_u32, origin: Position.new(100_u32, 120_u32))
 
   describe "#size" do

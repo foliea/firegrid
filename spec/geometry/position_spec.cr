@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe "Position" do
+describe Position do
   describe ".default" do
     it "returns a position with default x" do
       Position.default.x.should eq(0_u32)
