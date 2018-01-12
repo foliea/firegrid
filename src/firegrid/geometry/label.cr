@@ -2,7 +2,7 @@ require "./position"
 require "./square"
 
 class Firegrid::Geometry::Label
-  getter content : String
+  getter square : Square, content : String
 
   private SQUARE_HEIGHT_RATE = 0.5
 
@@ -14,6 +14,10 @@ class Firegrid::Geometry::Label
 
   def origin : Position
     Position.new(@square.center.x - half_size * @content.size, @square.center.y + half_size)
+  end
+
+  def ==(label : self)
+    @square == label.square && @content == label.content
   end
 
   private def half_size

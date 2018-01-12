@@ -29,9 +29,9 @@ class Firegrid::Geometry::Panel
     end
   end
 
-  def labels(keys)
+  def labels(texts : Array(String))
     @grid.squares.map_with_index do |square, index|
-      Geometry::Label.new(square, keys[index][0..1])
+      Geometry::Label.new(square, texts[index][0..1])
     end
   end
 
