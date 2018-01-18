@@ -26,7 +26,7 @@ class Firegrid::Overlay < Qt::Widget
     @grid.squares.map { |square| square.borders.values }.flatten.each do |b|
       next if (b.origin.x.zero? && b.limit.x.zero?) || (b.origin.y.zero? && b.limit.y.zero?)
 
-      painter.draw_line(b.origin.x.to_i, b.origin.y.to_i, b.limit.x.to_i, b.limit.y.to_i)
+      painter.draw_line(b.origin.x, b.origin.y, b.limit.x, b.limit.y)
     end
   end
 
@@ -38,7 +38,7 @@ class Firegrid::Overlay < Qt::Widget
 
       label = Geometry::Label.new(square, text[0..1])
 
-      painter.font.pixel_size = label.size.to_i
+      painter.font.pixel_size = label.size
 
       painter.draw_text(Qt::Point.new(label.origin.x, label.origin.y), label.content)
     end

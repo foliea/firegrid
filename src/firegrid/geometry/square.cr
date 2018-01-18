@@ -1,9 +1,9 @@
 require "./border"
 
 class Firegrid::Geometry::Square
-  getter width : UInt32, height : UInt32, origin : Position
+  getter width : Int32, height : Int32, origin : Position
 
-  def initialize(@width : UInt32, @height : UInt32, @origin : Position); end
+  def initialize(@width : Int32, @height : Int32, @origin : Position); end
 
   def center : Position
     Position.new(@origin.x + @width / 2, @origin.y + @height / 2)
@@ -28,7 +28,7 @@ class Firegrid::Geometry::Square
     }
   end
 
-  def to_grid(max_size : UInt32) : Grid
+  def to_grid(max_size : Int32) : Grid
     Grid.new(@width, @height, origin: @origin, max_size: max_size)
   end
 

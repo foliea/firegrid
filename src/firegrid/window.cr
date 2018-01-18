@@ -29,9 +29,9 @@ class Firegrid::Window < Qt::MainWindow
   end
 
   def resize_event(_event)
-    move(@display.origin.x.to_i, @display.origin.y.to_i)
+    move(@display.origin.x, @display.origin.y)
 
-    resize(@display.width.to_i, @display.height.to_i)
+    resize(@display.width, @display.height)
 
     show_full_screen
   end
@@ -58,8 +58,8 @@ class Firegrid::Window < Qt::MainWindow
     self.window_state = STATE
     self.window_title = TITLE
     self.central_widget = @overlay
-    self.fixed_width = @display.width.to_i
-    self.fixed_height = @display.height.to_i
+    self.fixed_width = @display.width
+    self.fixed_height = @display.height
     self.style_sheet = "background-image: url(#{@display.capture});"
   end
 end

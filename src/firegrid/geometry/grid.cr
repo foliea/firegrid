@@ -1,31 +1,30 @@
 class Firegrid::Geometry::Grid
-  private MIN_VERTICAL_SQUARE_COUNT = 1_u32
+  private MIN_VERTICAL_SQUARE_COUNT = 1
 
-  getter width : UInt32, height : UInt32, origin : Position, max_size : UInt32
+  getter width : Int32, height : Int32, origin : Position, max_size : Int32
 
   def initialize(
-    @width : UInt32,
-    @height : UInt32,
-    @max_size : UInt32,
+    @width : Int32,
+    @height : Int32,
+    @max_size : Int32,
     @origin = Position.default
   ); end
 
   def squares : Array(Square)
     horizontal_count, vertical_count = format
 
-    size = horizontal_count * vertical_count
+    square_width = (@width / horizontal_count).to_i
 
-    square_width = @width / horizontal_count
+    square_height = (@height / vertical_count).to_i
 
-    square_height = @height / vertical_count
+    (0..vertical_count - 1).map do |line|
+      (0..horizontal_count - 1).map do |row|
+        x = (@origin.x + square_width * row).to_i
+        y = (@origin.y + square_height * line).to_i
 
-    (0..size - 1).map do |index|
-      square_origin = Position.new(
-        @origin.x + (index - horizontal_count * (index / horizontal_count)) * square_width,
-        @origin.y + index / horizontal_count * square_height
-      )
-      Square.new(square_width, square_height, origin: square_origin)
-    end
+        Square.new(square_width, square_height, origin: Position.new(x, y))
+      end
+    end.flatten
   end
 
   def ==(grid : self) : Bool
@@ -47,7 +46,7 @@ class Firegrid::Geometry::Grid
     format(vertical_count + 1)
   end
 
-  private def horizontal_squares_count(vertical_count : UInt32)
-    (vertical_count * @width.to_f / @height.to_f).floor.to_u32
+  private def horizontal_squares_count(vertical_count : Int32)
+    (vertical_count * @width.to_f / @height.to_f).floor
   end
 end

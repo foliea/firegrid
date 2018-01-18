@@ -128,7 +128,7 @@ describe Config do
 
   describe "#max_grid_size" do
     it "equals square keys count from given body" do
-      Config.new(valid_body).max_grid_size.should eq(8_u32)
+      Config.new(valid_body).max_grid_size.should eq(8)
     end
   end
 end

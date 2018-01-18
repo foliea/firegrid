@@ -1,11 +1,11 @@
 class Firegrid::Geometry::Position
-  getter x : UInt32, y : UInt32
+  getter x : Int32, y : Int32
 
   def self.default : self
-    new(0_u32, 0_u32)
+    new(0, 0)
   end
 
-  def initialize(@x : UInt32, @y : UInt32); end
+  def initialize(@x : Int32, @y : Int32); end
 
   def inner?(point_a : self, point_b : self) : Bool
     x >= point_a.x && x <= point_b.x && y >= point_a.y && y <= point_b.y

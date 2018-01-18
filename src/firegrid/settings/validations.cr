@@ -4,7 +4,7 @@ module Firegrid::Settings::Validations
   # Try it here: http://rubular.com/r/cPuMa8WlKA
   private HEXADECIMAL_COLOR_REGEXP = /^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/
 
-  private MIN_GRID_SIZE_TRESHOLD = 8_u32
+  private MIN_GRID_SIZE_TRESHOLD = 8
 
   private EXPECTED_SECTIONS = %w(colors keys)
 

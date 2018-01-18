@@ -13,15 +13,15 @@ class Firegrid::Display < Qt::DesktopWidget
   end
 
   def origin : Geometry::Position
-    Geometry::Position.new(geometry.x.to_u32, geometry.y.to_u32)
+    Geometry::Position.new(geometry.x, geometry.y)
   end
 
-  def width : UInt32
-    geometry.width.to_u32
+  def width : Int32
+    geometry.width
   end
 
-  def height : UInt32
-    geometry.height.to_u32
+  def height : Int32
+    geometry.height
   end
 
   def capture : String
@@ -44,10 +44,10 @@ class Firegrid::Display < Qt::DesktopWidget
     Qt::GuiApplication.screens.find do |screen|
       geometry = screen.geometry
 
-      top_left_corner = Geometry::Position.new(geometry.x.to_u32, geometry.y.to_u32)
+      top_left_corner = Geometry::Position.new(geometry.x, geometry.y)
 
       bottom_right_corner = Geometry::Position.new(
-        (geometry.x + geometry.width).to_u32, (geometry.y + geometry.height).to_u32
+        (geometry.x + geometry.width), (geometry.y + geometry.height)
       )
       @mouse_location.inner?(top_left_corner, bottom_right_corner)
     end.not_nil!
@@ -62,6 +62,6 @@ class Firegrid::Display < Qt::DesktopWidget
 
     full = io.to_s.split(" ")
 
-    Geometry::Position.new(full[0].gsub("x:", "").to_u32, full[1].gsub("y:", "").to_u32)
+    Geometry::Position.new(full[0].gsub("x:", "").to_i, full[1].gsub("y:", "").to_i)
   end
 end

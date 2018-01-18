@@ -8,8 +8,8 @@ class Firegrid::Geometry::Label
 
   def initialize(@square : Square, @content : String); end
 
-  def size : UInt32
-    (@square.height * SQUARE_HEIGHT_RATE).to_u32
+  def size : Int32
+    (@square.height * SQUARE_HEIGHT_RATE).to_i
   end
 
   def origin : Position

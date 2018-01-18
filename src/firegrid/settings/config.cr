@@ -30,8 +30,8 @@ class Firegrid::Settings::Config
     }
   end
 
-  def max_grid_size : UInt32
-    square_keys.size.to_u32
+  def max_grid_size : Int32
+    square_keys.size
   end
 
   def keybindings : Keybindings
