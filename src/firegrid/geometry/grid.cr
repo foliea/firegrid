@@ -22,15 +22,13 @@ class Firegrid::Geometry::Grid
         x = (@origin.x + square_width * row).to_i
         y = (@origin.y + square_height * line).to_i
 
-        Square.new(square_width, square_height, origin: Position.new(x, y))
+        build_square(square_width, square_height, x, y)
       end
     end.flatten
   end
 
   def ==(grid : self) : Bool
-    @width == grid.width &&
-      @height == grid.height &&
-      @origin == grid.origin &&
+    @width == grid.width && @height == grid.height && @origin == grid.origin &&
       @max_size == grid.max_size
   end
 
@@ -48,5 +46,9 @@ class Firegrid::Geometry::Grid
 
   private def horizontal_squares_count(vertical_count)
     (vertical_count * @width.to_f / @height.to_f).floor
+  end
+
+  private def build_square(width, height, x, y)
+    Square.new(width, height, origin: Position.new(x, y))
   end
 end

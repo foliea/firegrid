@@ -1,5 +1,4 @@
 require "qt5"
-require "./settings/config"
 require "./geometry/panel"
 
 class Firegrid::Window < Qt::MainWindow
@@ -8,12 +7,12 @@ class Firegrid::Window < Qt::MainWindow
 
   @keybindings : Settings::Keybindings
 
-  def initialize(@display = Display.new, config = Settings::Config.load, *args)
+  def initialize(@display : Display, config : Settings::Config, *args)
     super(*args)
 
     @panel = Geometry::Panel.new(@display.width, @display.height, config.max_grid_size)
 
-    @overlay = Overlay.new(@panel.grid, config)
+    @overlay = Overlay.new(@panel, config)
 
     @keybindings = config.keybindings
 
@@ -45,7 +44,7 @@ class Firegrid::Window < Qt::MainWindow
 
     return close_then_click(selection.not_nil!) if status == :clickable
 
-    @overlay.refresh(@panel.grid)
+    @overlay.repaint
   end
 
   private def close_then_click(selection)
