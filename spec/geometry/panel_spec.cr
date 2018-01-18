@@ -48,7 +48,7 @@ describe Panel do
   end
 
   describe "#borders" do
-    it "returns all panel square borders" do
+    it "returns panel square borders except borders on panel extremities" do
       panel = Panel.new(1920, 1080, max_grid_size: 4)
 
       panel.borders.should eq([
