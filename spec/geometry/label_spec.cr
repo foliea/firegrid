@@ -22,9 +22,9 @@ describe Label do
   end
 
   describe "==" do
-    square = Square.new(0_u32, 0_u32, origin: Position.new(1_u32, 1_u32))
+    square = Square.new(0, 0, origin: Position.new(1, 1))
 
-    other_square = Square.new(1_u32, 0_u32, origin: Position.new(1_u32, 1_u32))
+    other_square = Square.new(1, 0, origin: Position.new(1, 1))
 
     label = Label.new(square, "a")
 
