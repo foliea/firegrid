@@ -29,7 +29,7 @@ class Firegrid::Settings::Keybindings
     squares[id].as(String)
   end
 
-  private def human_readable_key(keycode : String) : String
+  private def human_readable_key(keycode)
     HUMAN_READABLE_KEYS.has_value?(keycode) ? HUMAN_READABLE_KEYS.key(keycode) : keycode
   end
 

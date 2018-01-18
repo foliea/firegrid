@@ -20,7 +20,7 @@ class Firegrid::Overlay < Qt::Widget
     repaint
   end
 
-  private def draw_lines(painter : Qt::Painter)
+  private def draw_lines(painter)
     painter.pen = Qt::Color.new(@config.colors[:border])
 
     @grid.squares.map { |square| square.borders.values }.flatten.each do |b|
@@ -30,7 +30,7 @@ class Firegrid::Overlay < Qt::Widget
     end
   end
 
-  private def draw_texts(painter : Qt::Painter)
+  private def draw_texts(painter)
     painter.pen = Qt::Color.new(@config.colors[:font])
 
     @grid.squares.each_with_index do |square, index|

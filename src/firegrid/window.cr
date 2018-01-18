@@ -40,7 +40,7 @@ class Firegrid::Window < Qt::MainWindow
     close
   end
 
-  private def choose(square_id : Int32)
+  private def choose(square_id)
     status, selection = @panel.select(square_id)
 
     return close_then_click(selection.not_nil!) if status == :clickable
@@ -48,7 +48,7 @@ class Firegrid::Window < Qt::MainWindow
     @overlay.refresh(@panel.grid)
   end
 
-  private def close_then_click(selection : Geometry::Position)
+  private def close_then_click(selection)
     close
 
     @display.click(selection)

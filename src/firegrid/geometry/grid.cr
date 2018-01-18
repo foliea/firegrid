@@ -46,7 +46,7 @@ class Firegrid::Geometry::Grid
     format(vertical_count + 1)
   end
 
-  private def horizontal_squares_count(vertical_count : Int32)
+  private def horizontal_squares_count(vertical_count)
     (vertical_count * @width.to_f / @height.to_f).floor
   end
 end

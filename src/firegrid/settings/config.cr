@@ -50,7 +50,7 @@ class Firegrid::Settings::Config
     TOML.parse(@body)
   end
 
-  private def extract_value(section : String, key : String)
+  private def extract_value(section, key)
     values = content[section].as(Hash(String, TOML::Type))
 
     values.has_key?(key) ? values[key] : nil

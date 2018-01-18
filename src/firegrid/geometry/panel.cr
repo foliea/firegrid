@@ -21,13 +21,13 @@ class Firegrid::Geometry::Panel
     {:unclickable, nil}
   end
 
-  private def focus(square : Square)
+  private def focus(square)
     max_size = below_dimensions?(square, MINIMIZE_RATE) ? MINIMIZED_MAX_SIZE : @max_grid_size
 
     @grid = square.to_grid(max_size)
   end
 
-  private def below_dimensions?(square : Square, rate : Int32 | Float64)
+  private def below_dimensions?(square, rate)
     square.width <= @width * rate / 100 || square.height <= @height * rate / 100
   end
 end
