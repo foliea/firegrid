@@ -42,12 +42,11 @@ class Firegrid::Display < Qt::DesktopWidget
 
   private def current_screen
     Qt::GuiApplication.screens.find do |screen|
-      geometry = screen.geometry
-
-      top_left_corner = Geometry::Position.new(geometry.x, geometry.y)
+      top_left_corner = Geometry::Position.new(screen.geometry.x, screen.geometry.y)
 
       bottom_right_corner = Geometry::Position.new(
-        (geometry.x + geometry.width), (geometry.y + geometry.height)
+        (screen.geometry.x + screen.geometry.width),
+        (screen.geometry.y + screen.geometry.height)
       )
       @mouse_location.inner?(top_left_corner, bottom_right_corner)
     end.not_nil!
