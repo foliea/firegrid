@@ -13,12 +13,6 @@ class Firegrid::Overlay < Qt::Widget
     end
   end
 
-  def refresh(grid : Geometry::Grid)
-    @grid = grid
-
-    repaint
-  end
-
   private def draw_lines(painter)
     painter.pen = Qt::Color.new(@config.colors[:border])
 
