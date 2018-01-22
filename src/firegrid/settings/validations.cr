@@ -49,9 +49,9 @@ module Firegrid::Settings::Validations
   private def validate_keys!
     validate_exit_key!
 
-    validate_square_keys!
+    validate_tile_keys!
 
-    validate_duplicate_keys!(square_keys.concat([exit_key]))
+    validate_duplicate_keys!(tile_keys.concat([exit_key]))
   end
 
   private def validate_exit_key!
@@ -62,11 +62,11 @@ module Firegrid::Settings::Validations
     end
   end
 
-  private def validate_square_keys!
-    value = extract_value("keys", "squares")
+  private def validate_tile_keys!
+    value = extract_value("keys", "tiles")
 
-    unless value.is_a?(Array(TOML::Type)) && square_keys.size >= MIN_GRID_SIZE_TRESHOLD
-      message = "Please specify at least #{MIN_GRID_SIZE_TRESHOLD} square keys"
+    unless value.is_a?(Array(TOML::Type)) && tile_keys.size >= MIN_GRID_SIZE_TRESHOLD
+      message = "Please specify at least #{MIN_GRID_SIZE_TRESHOLD} tile keys"
 
       raise InvalidConfiguration.new(message)
     end

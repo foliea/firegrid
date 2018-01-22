@@ -1,23 +1,23 @@
 require "./position"
-require "./square"
+require "./tile"
 
 class Firegrid::Geometry::Label
-  getter square : Square, content : String
+  getter tile : Tile, content : String
 
   private SQUARE_HEIGHT_RATE = 0.5
 
-  def initialize(@square : Square, @content : String); end
+  def initialize(@tile : Tile, @content : String); end
 
   def size : Int32
-    (@square.height * SQUARE_HEIGHT_RATE).to_i
+    (@tile.height * SQUARE_HEIGHT_RATE).to_i
   end
 
   def origin : Position
-    Position.new(@square.center.x - half_size * @content.size, @square.center.y + half_size)
+    Position.new(@tile.center.x - half_size * @content.size, @tile.center.y + half_size)
   end
 
   def ==(label : self)
-    @square == label.square && @content == label.content
+    @tile == label.tile && @content == label.content
   end
 
   private def half_size

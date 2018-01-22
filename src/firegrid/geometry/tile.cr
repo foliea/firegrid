@@ -1,6 +1,6 @@
 require "./border"
 
-class Firegrid::Geometry::Square
+class Firegrid::Geometry::Tile
   getter width : Int32, height : Int32, origin : Position
 
   def initialize(@width : Int32, @height : Int32, @origin : Position); end
@@ -32,7 +32,7 @@ class Firegrid::Geometry::Square
     Grid.new(@width, @height, origin: @origin, max_size: max_size)
   end
 
-  def ==(square : self) : Bool
-    @width == square.width && @height == square.height && @origin == square.origin
+  def ==(tile : self) : Bool
+    @width == tile.width && @height == tile.height && @origin == tile.origin
   end
 end

@@ -13,17 +13,17 @@ describe Grid do
     end
   end
 
-  describe "#squares" do
-    it "creates and return grid squares" do
+  describe "#tiles" do
+    it "creates and return grid tiles" do
       grid = Grid.new(1920, 1200, max_size: 6)
 
-      grid.squares.should eq([
-        Square.new(640, 600, origin: Position.new(0, 0)),
-        Square.new(640, 600, origin: Position.new(640, 0)),
-        Square.new(640, 600, origin: Position.new(1280, 0)),
-        Square.new(640, 600, origin: Position.new(0, 600)),
-        Square.new(640, 600, origin: Position.new(640, 600)),
-        Square.new(640, 600, origin: Position.new(1280, 600)),
+      grid.tiles.should eq([
+        Tile.new(640, 600, origin: Position.new(0, 0)),
+        Tile.new(640, 600, origin: Position.new(640, 0)),
+        Tile.new(640, 600, origin: Position.new(1280, 0)),
+        Tile.new(640, 600, origin: Position.new(0, 600)),
+        Tile.new(640, 600, origin: Position.new(640, 600)),
+        Tile.new(640, 600, origin: Position.new(1280, 600)),
       ])
     end
   end

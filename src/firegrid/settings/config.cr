@@ -31,15 +31,15 @@ class Firegrid::Settings::Config
   end
 
   def max_grid_size : Int32
-    square_keys.size
+    tile_keys.size
   end
 
-  def square_keys
-    extract_value("keys", "squares").as(Array(TOML::Type)).map { |key| key.to_s }
+  def tile_keys
+    extract_value("keys", "tiles").as(Array(TOML::Type)).map { |key| key.to_s }
   end
 
   def keybindings : Keybindings
-    @_keybindings ||= Keybindings.new({:exit => exit_key, :squares => square_keys})
+    @_keybindings ||= Keybindings.new({:exit => exit_key, :tiles => tile_keys})
   end
 
   private def exit_key

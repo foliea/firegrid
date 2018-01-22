@@ -8,7 +8,7 @@ describe Panel do
   end
 
   describe "#select" do
-    context "when selecting a square" do
+    context "when selecting a tile" do
       it "returns an unclickable status" do
         panel = Panel.new(1920, 1080, max_grid_size: 40)
 
@@ -17,7 +17,7 @@ describe Panel do
         status.should eq(:unclickable)
       end
 
-      it "creates a new grid from selected square" do
+      it "creates a new grid from selected tile" do
         panel = Panel.new(1920, 1080, max_grid_size: 40)
 
         panel.select(0)
@@ -26,7 +26,7 @@ describe Panel do
       end
     end
 
-    context "when selecting two squares consecutively" do
+    context "when selecting two tiles consecutively" do
       it "returns an unclickable status" do
         panel = Panel.new(1920, 1080, max_grid_size: 40)
 
@@ -37,7 +37,7 @@ describe Panel do
         status.should eq(:unclickable)
       end
 
-      it "creates a new minimized grid from selected square" do
+      it "creates a new minimized grid from selected tile" do
         panel = Panel.new(1920, 1080, max_grid_size: 40)
 
         2.times { panel.select(0) }
@@ -48,7 +48,7 @@ describe Panel do
   end
 
   describe "#borders" do
-    it "returns panel square borders except borders on panel extremities" do
+    it "returns panel tile borders except borders on panel extremities" do
       panel = Panel.new(1920, 1080, max_grid_size: 4)
 
       panel.borders.should eq([
@@ -59,11 +59,11 @@ describe Panel do
   end
 
   describe "#labels" do
-    it "returns labels with given texts for each panel square" do
+    it "returns labels with given texts for each panel tile" do
       panel = Panel.new(1920, 1080, max_grid_size: 4)
 
       panel.labels(%w(a)).should eq([
-        Label.new(Square.new(1920, 1080, origin: Position.new(0, 0)), "a"),
+        Label.new(Tile.new(1920, 1080, origin: Position.new(0, 0)), "a"),
       ])
     end
   end

@@ -6,8 +6,8 @@ It allows you to move the pointer and click quickly to most points on the screen
 
 ### How so?
 You select a piece of the screen. The sceen is initialy entirely covered with a grid. Each key will
-select a square of the grid and create another grid inside. Once a selected square is precise enough,
-the mouse pointer will move to the square center and a mouse click will be triggered.
+select a tile of the grid and create another grid inside. Once a selected tile is precise enough,
+the mouse pointer will move to the tile center and a mouse click will be triggered.
 
 <img src="/images/grid-large.png" width="350"/>
 

@@ -11,37 +11,37 @@ class Firegrid::Geometry::Panel
     @grid = Grid.new(@width, @height, max_size: @max_grid_size)
   end
 
-  def select(square_id : Int32) : Tuple(Symbol, Position | Nil)
-    return {:unclickable, nil} if square_id >= @grid.squares.size
+  def select(tile_id : Int32) : Tuple(Symbol, Position | Nil)
+    return {:unclickable, nil} if tile_id >= @grid.tiles.size
 
-    square = @grid.squares[square_id]
+    tile = @grid.tiles[tile_id]
 
-    return {:clickable, square.center} if below_dimensions?(square, PRECISON_RATE)
+    return {:clickable, tile.center} if below_dimensions?(tile, PRECISON_RATE)
 
-    focus(square)
+    focus(tile)
 
     {:unclickable, nil}
   end
 
   def borders
-    @grid.squares.map { |square| square.borders.values }.flatten.select do |b|
+    @grid.tiles.map { |tile| tile.borders.values }.flatten.select do |b|
       !((b.origin.x.zero? && b.limit.x.zero?) || (b.origin.y.zero? && b.limit.y.zero?))
     end
   end
 
   def labels(texts : Array(String))
-    @grid.squares.map_with_index do |square, index|
-      Geometry::Label.new(square, texts[index][0..1])
+    @grid.tiles.map_with_index do |tile, index|
+      Geometry::Label.new(tile, texts[index][0..1])
     end
   end
 
-  private def focus(square)
-    max_size = below_dimensions?(square, MINIMIZE_RATE) ? MINIMIZED_MAX_SIZE : @max_grid_size
+  private def focus(tile)
+    max_size = below_dimensions?(tile, MINIMIZE_RATE) ? MINIMIZED_MAX_SIZE : @max_grid_size
 
-    @grid = square.to_grid(max_size)
+    @grid = tile.to_grid(max_size)
   end
 
-  private def below_dimensions?(square, rate)
-    square.width <= @width * rate / 100 || square.height <= @height * rate / 100
+  private def below_dimensions?(tile, rate)
+    tile.width <= @width * rate / 100 || tile.height <= @height * rate / 100
   end
 end

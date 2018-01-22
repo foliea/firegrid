@@ -1,7 +1,7 @@
 require "../spec_helper"
 
 describe Config do
-  square_keys = %(["a", "b", "c", "d", "e", "f", "g", "h"])
+  tile_keys = %(["a", "b", "c", "d", "e", "f", "g", "h"])
 
   valid_body = %(
     [colors]
@@ -10,7 +10,7 @@ describe Config do
 
     [keys]
     exit = "Escape"
-    squares = #{square_keys}
+    tiles = #{tile_keys}
   )
 
   describe "#validate!" do
@@ -92,10 +92,10 @@ describe Config do
       end
     end
 
-    context "when square keys are missing" do
+    context "when tile keys are missing" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
-          Config.new(valid_body.gsub("squares = #{square_keys}", "")).validate!
+          Config.new(valid_body.gsub("tiles = #{tile_keys}", "")).validate!
         end
       end
     end
@@ -108,10 +108,10 @@ describe Config do
       end
     end
 
-    context "when square keys count is below the minimum grid size" do
+    context "when tile keys count is below the minimum grid size" do
       it "raise an error" do
         expect_raises(InvalidConfiguration) do
-          Config.new(valid_body.gsub(square_keys, "[]")).validate!
+          Config.new(valid_body.gsub(tile_keys, "[]")).validate!
         end
       end
     end
@@ -127,14 +127,14 @@ describe Config do
   end
 
   describe "#max_grid_size" do
-    it "equals square keys count from given body" do
+    it "equals tile keys count from given body" do
       Config.new(valid_body).max_grid_size.should eq(8)
     end
   end
 
-  describe "#square_keys" do
-    it "equals square keys" do
-      Config.new(valid_body).square_keys.should eq(%w(a b c d e f g h))
+  describe "#tile_keys" do
+    it "equals tile keys" do
+      Config.new(valid_body).tile_keys.should eq(%w(a b c d e f g h))
     end
   end
 end

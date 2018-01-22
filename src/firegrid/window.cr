@@ -24,7 +24,7 @@ class Firegrid::Window < Qt::MainWindow
 
     return close if @keybindings.exit_keycode?(keycode)
 
-    choose(@keybindings.square_id(keycode)) if @keybindings.square_keycode?(keycode)
+    choose(@keybindings.tile_id(keycode)) if @keybindings.tile_keycode?(keycode)
   end
 
   def resize_event(_event)
@@ -39,8 +39,8 @@ class Firegrid::Window < Qt::MainWindow
     close
   end
 
-  private def choose(square_id)
-    status, selection = @panel.select(square_id)
+  private def choose(tile_id)
+    status, selection = @panel.select(tile_id)
 
     return close_then_click(selection.not_nil!) if status == :clickable
 

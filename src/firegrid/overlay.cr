@@ -24,7 +24,7 @@ class Firegrid::Overlay < Qt::Widget
   private def draw_texts(painter)
     painter.pen = Qt::Color.new(@config.colors[:font])
 
-    @panel.labels(@config.square_keys).each do |label|
+    @panel.labels(@config.tile_keys).each do |label|
       painter.font.pixel_size = label.size
 
       painter.draw_text(Qt::Point.new(label.origin.x, label.origin.y), label.content)
