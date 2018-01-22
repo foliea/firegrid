@@ -19,10 +19,10 @@ class Firegrid::Geometry::Grid
 
     (0..vertical_count - 1).map do |line|
       (0..horizontal_count - 1).map do |row|
-        x = (@origin.x + tile_width * row).to_i
-        y = (@origin.y + tile_height * line).to_i
+        tile_x = (@origin.x + tile_width * row).to_i
+        tile_y = (@origin.y + tile_height * line).to_i
 
-        build_tile(tile_width, tile_height, x, y)
+        build_tile(tile_width, tile_height, tile_x, tile_y)
       end
     end.flatten
   end

@@ -5,8 +5,6 @@ class Firegrid::Geometry::Panel
   private MINIMIZE_RATE      =   5
   private PRECISON_RATE      = 1.5
 
-  getter grid : Grid
-
   def initialize(@width : Int32, @height : Int32, @max_grid_size : Int32)
     @grid = Grid.new(@width, @height, max_size: @max_grid_size)
   end
