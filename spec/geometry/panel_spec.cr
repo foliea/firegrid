@@ -65,7 +65,19 @@ describe Panel do
 
         panel.select(0)
 
-        (panel.borders != previous_borders).should be_true
+        panel.borders.size.should eq(132)
+      end
+    end
+
+    context "when two tile are selected consecutively" do
+      it "returns borders from selected tile converted to a new minimized grid" do
+        panel = Panel.new(1920, 1080, max_grid_size: 40)
+
+        previous_borders = panel.borders
+
+        2.times { panel.select(0) }
+
+        panel.borders.size.should eq(12)
       end
     end
   end
@@ -81,13 +93,21 @@ describe Panel do
 
     context "when a tile is selected" do
       it "returns labels from selected tile converted to a new grid" do
-        panel = Panel.new(1920, 1080, max_grid_size: 8)
-
-        previous_labels = panel.labels(%w(a b c d e f g h))
+        panel = Panel.new(1920, 1080, max_grid_size: 12)
 
         panel.select(0)
 
-        (panel.labels(%w(a b c d e f g h)) != previous_labels).should be_true
+        panel.labels(%w(a b c d e f g h i j k l)).size.should eq(9)
+      end
+    end
+
+    context "when two tile are selected consecutively" do
+      it "returns labels from selected tile converted to a new minimized grid" do
+        panel = Panel.new(1920, 1080, max_grid_size: 40)
+
+        2.times { panel.select(0) }
+
+        panel.labels(%w(a b c d)).size.should eq(4)
       end
     end
   end

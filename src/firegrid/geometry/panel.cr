@@ -21,9 +21,9 @@ class Firegrid::Geometry::Panel
     {:unclickable, nil}
   end
 
-  def borders
-    @grid.tiles.map { |tile| tile.borders.values }.flatten.select do |b|
-      !((b.origin.x.zero? && b.limit.x.zero?) || (b.origin.y.zero? && b.limit.y.zero?))
+  def borders : Array(Border)
+    @grid.tiles.map { |tile| tile.borders.values }.flatten.reject do |b|
+      (b.origin.x.zero? && b.limit.x.zero?) || (b.origin.y.zero? && b.limit.y.zero?)
     end
   end
 
