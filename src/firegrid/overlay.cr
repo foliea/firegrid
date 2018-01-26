@@ -17,6 +17,8 @@ class Firegrid::Overlay < Qt::Widget
     painter.pen = Qt::Color.new(@config.colors[:border])
 
     @panel.borders.each do |b|
+      next if (b.origin.x.zero? && b.limit.x.zero?) || (b.origin.y.zero? && b.limit.y.zero?)
+
       painter.draw_line(b.origin.x, b.origin.y, b.limit.x, b.limit.y)
     end
   end

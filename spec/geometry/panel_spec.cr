@@ -48,10 +48,12 @@ describe Panel do
   end
 
   describe "#borders" do
-    it "returns panel tile borders except borders on panel extremities" do
+    it "returns all panel tiles borders" do
       panel = Panel.new(1920, 1080, max_grid_size: 4)
 
       panel.borders.should eq([
+        Border.new(Position.new(0, 0), Position.new(1920, 0)),
+        Border.new(Position.new(0, 0), Position.new(0, 1080)),
         Border.new(Position.new(1920, 0), Position.new(1920, 1080)),
         Border.new(Position.new(0, 1080), Position.new(1920, 1080)),
       ])
@@ -65,7 +67,7 @@ describe Panel do
 
         panel.select(0)
 
-        panel.borders.size.should eq(132)
+        panel.borders.size.should eq(144)
       end
     end
 
@@ -77,7 +79,7 @@ describe Panel do
 
         2.times { panel.select(0) }
 
-        panel.borders.size.should eq(12)
+        panel.borders.size.should eq(16)
       end
     end
   end

@@ -22,9 +22,7 @@ class Firegrid::Geometry::Panel
   end
 
   def borders : Array(Border)
-    @grid.tiles.map { |tile| tile.borders.values }.flatten.reject do |b|
-      (b.origin.x.zero? && b.limit.x.zero?) || (b.origin.y.zero? && b.limit.y.zero?)
-    end
+    @grid.tiles.map { |tile| tile.borders.values }.flatten
   end
 
   def labels(texts : Array(String))
