@@ -10,21 +10,11 @@ class Firegrid::Geometry::Tile
   end
 
   def borders : Hash(String, Border)
-    x = @origin.x
-    y = @origin.y
     {
-      "top" => Border.new(
-        Position.new(x, y), Position.new(x + @width, y)
-      ),
-      "left" => Border.new(
-        Position.new(x, y), Position.new(x, y + @height)
-      ),
-      "right" => Border.new(
-        Position.new(x + @width, y), Position.new(x + @width, y + @height)
-      ),
-      "bottom" => Border.new(
-        Position.new(x, y + @height), Position.new(x + @width, y + @height)
-      ),
+      "top"    => Border.new(top_left_corner, top_right_corner),
+      "left"   => Border.new(top_left_corner, bottom_left_corner),
+      "right"  => Border.new(top_right_corner, bottom_right_corner),
+      "bottom" => Border.new(bottom_left_corner, bottom_right_corner),
     }
   end
 
@@ -34,5 +24,21 @@ class Firegrid::Geometry::Tile
 
   def ==(tile : self) : Bool
     @width == tile.width && @height == tile.height && @origin == tile.origin
+  end
+
+  private def top_left_corner
+    Position.new(@origin.x, @origin.y)
+  end
+
+  private def top_right_corner
+    Position.new(@origin.x + @width, @origin.y)
+  end
+
+  private def bottom_left_corner
+    Position.new(@origin.x, @origin.y + @height)
+  end
+
+  private def bottom_right_corner
+    Position.new(@origin.x + @width, @origin.y + @height)
   end
 end
