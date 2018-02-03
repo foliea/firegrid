@@ -13,18 +13,11 @@ class Firegrid::Geometry::Grid
   def tiles : Array(Tile)
     horizontal_count, vertical_count = format
 
-    tile_width = (@width / horizontal_count).to_i
+    (0..(horizontal_count * vertical_count) - 1).map do |index|
+      row = index / horizontal_count
 
-    tile_height = (@height / vertical_count).to_i
-
-    (0..vertical_count - 1).map do |line|
-      (0..horizontal_count - 1).map do |row|
-        tile_x = (@origin.x + tile_width * row).to_i
-        tile_y = (@origin.y + tile_height * line).to_i
-
-        build_tile(tile_width, tile_height, tile_x, tile_y)
-      end
-    end.flatten
+      build_tile_at(row: row, column: index - row * horizontal_count)
+    end
   end
 
   def ==(grid : self) : Bool
@@ -45,10 +38,25 @@ class Firegrid::Geometry::Grid
   end
 
   private def horizontal_tiles_count(vertical_count)
-    (vertical_count * @width.to_f / @height.to_f).floor
+    (vertical_count * @width.to_f / @height.to_f).floor.to_i
   end
 
-  private def build_tile(width, height, x, y)
-    Tile.new(width, height, origin: Position.new(x, y))
+  private def build_tile_at(row, column)
+    x = (@origin.x + tile_width * column).to_i
+    y = (@origin.y + tile_height * row).to_i
+
+    Tile.new(tile_width, tile_height, origin: Position.new(x, y))
+  end
+
+  private def tile_width
+    horizontal_count, _ = format
+
+    tile_width = (@width / horizontal_count).to_i
+  end
+
+  private def tile_height
+    _, vertical_count = format
+
+    (@height / vertical_count).to_i
   end
 end
