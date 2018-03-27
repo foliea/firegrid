@@ -2,7 +2,7 @@ version: 1.0
 shards:
   bindgen:
     github: Papierkorb/bindgen
-    commit: 150396158bd9a3632a644b037ea7389e4d25449a
+    commit: a3c4376eebf0303962e613e5072d735837c24f1a
 
   qt5:
     github: Papierkorb/qt5.cr
